@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <script type="module" src="js/supabase-client.js"></script>
+    <script type="module" src="js/maintenance-check.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ShipSwift</title>
+    
+    <!-- Link to the main stylesheet for global variables, fonts, and reusable components -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Link to the NEW dashboard-specific stylesheet -->
+    <link rel="stylesheet" href="css/dashboard.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+<body class="dashboard-body">
+
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar" id="dashboard-sidebar">
+            <a href="index.html" class="logo">ShipSwift</a>
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <div class="sidebar-profile">
+                    <div class="profile-avatar">A</div>
+                    <div class="profile-info">
+                        <span class="profile-name">Ama Tetteh</span>
+                        <span class="profile-id">ID: SSW-1234</span>
+                    </div>
+                </div>
+                <ul>
+                    <li><a href="#" class="active" data-target="dashboard-view"><i class="icon fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                    <li><a href="#" data-target="link-orders-view"><i class="icon fas fa-link"></i> <span>Link Orders</span></a></li>
+                    <li><a href="#" data-target="warehouse-address-view"><i class="icon fas fa-warehouse"></i> <span>My Warehouse Address</span></a></li>
+                    <li><a href="#" data-target="wallet-view"><i class="icon fas fa-wallet"></i> <span>Wallet</span></a></li>
+                    <li><a href="#" data-target="settings-view"><i class="icon fas fa-cog"></i> <span>Settings</span></a></li>
+                    <li><a href="login.html"><i class="icon fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="dashboard-main">
+            <div class="mobile-dashboard-header">
+                <button class="hamburger" id="mobile-hamburger"><i class="fas fa-bars"></i></button>
+                <span class="mobile-header-title">Dashboard</span>
+            </div>
+
+            <!-- Dashboard View (Default) -->
+            <div id="dashboard-view" class="content-panel active">
+                <header class="dashboard-header" data-aos="fade-up"><h1>Welcome Back, Ama!</h1></header>
+                <div class="dashboard-grid" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-card"><div class="icon"><i class="fas fa-shipping-fast"></i></div><div class="value">3</div><div class="label">Orders in Transit</div></div>
+                    <div class="stat-card"><div class="icon"><i class="fas fa-check-circle"></i></div><div class="value">1</div><div class="label">Ready for Pickup</div></div>
+                    <div class="stat-card"><div class="icon"><i class="fas fa-wallet"></i></div><div class="value">₵500.00</div><div class="label">Wallet Balance</div></div>
+                </div>
+                <div class="dash-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3>Quick Actions</h3>
+                    <div class="quick-actions-grid">
+                        <a href="order.html" class="action-card"><i class="fas fa-link"></i><span>Place a New Link Order</span></a>
+                        <a href="#" class="action-card nav-action-trigger" data-target="warehouse-address-view"><i class="fas fa-box-open"></i><span>Ship Items to My Address</span></a>
+                        <a href="#" class="action-card nav-action-trigger" data-target="wallet-view"><i class="fas fa-money-bill-wave"></i><span>Top-Up Wallet</span></a>
+                    </div>
+                </div>
+                <div class="dash-card" data-aos="fade-up" data-aos-delay="300">
+                    <h3>Active Shipments Overview</h3>
+                    <div class="shipment-list">
+                        <div class="shipment-item-detailed"><img src="https://placehold.co/100x100/0052FF/FFFFFF?text=Item" alt="Product" class="shipment-image"><div class="shipment-info"><strong>Blue Smart Speaker</strong><div class="status">Order #SS-1024</div></div><div class="progress-container"><div class="progress-bar"><div class="progress-fill" style="width: 60%;"></div></div><span>In Transit</span></div><div class="eta">~9 Days Left</div></div>
+                        <div class="shipment-item-detailed"><img src="https://placehold.co/100x100/30D5C8/FFFFFF?text=Item" alt="Product" class="shipment-image"><div class="shipment-info"><strong>Leather Handbag</strong><div class="status">Order #SS-1021</div></div><div class="progress-container"><div class="progress-bar"><div class="progress-fill" style="width: 90%; background-color: var(--primary-blue);"></div></div><span>Clearing Customs</span></div><div class="eta">Ready Soon</div></div>
+                    </div>
+                </div>
+            </div>
+
+              <!-- Link Orders View -->
+            <div id="link-orders-view" class="content-panel">
+                 <header class="dashboard-header"><h1>My Link Orders</h1></header>
+                 <div class="dash-card">
+                    <div class="card-toolbar"><input type="text" placeholder="Search by product or ID..."><a href="order.html" class="btn btn-primary"><i class="fas fa-plus"></i> New Order</a></div>
+                    <div class="data-table">
+                        <div class="table-header"><div>Order ID</div><div>Product</div><div>Date</div><div>Status</div><div class="text-right">Total</div><div></div></div>
+                        <div class="table-row"><div>#LO-5678</div><div>Smart Wireless Earbuds</div><div>28 Oct 2024</div><div><span class="status-badge status-transit">In Transit</span></div><div class="text-right">₵275.00</div><div><button class="btn-icon"><i class="fas fa-ellipsis-h"></i></button></div></div>
+                        <div class="table-row"><div>#LO-5677</div><div>Modern Desk Lamp</div><div>26 Oct 2024</div><div><span class="status-badge status-processing">Processing</span></div><div class="text-right">₵198.00</div><div><button class="btn-icon"><i class="fas fa-ellipsis-h"></i></button></div></div>
+                        <div class="table-row"><div>#LO-5675</div><div>Classic Leather Jacket</div><div>15 Oct 2024</div><div><span class="status-badge status-delivered">Delivered</span></div><div class="text-right">₵935.00</div><div><button class="btn-icon"><i class="fas fa-ellipsis-h"></i></button></div></div>
+                    </div>
+                 </div>
+            </div>
+            
+            <!-- Warehouse Address View -->
+            <div id="warehouse-address-view" class="content-panel">
+                 <header class="dashboard-header"><h1>My China Warehouse Address</h1></header>
+                 <div class="dash-card">
+                    <p class="text-muted" style="margin-bottom: 20px;">Use this unique address as your 'shipping address' when checking out from any online store. When packages arrive here under your name and ID, we'll notify you to arrange shipment to Ghana.</p>
+                    <div class="address-card">
+                        <div id="address-to-copy"><p><strong>Name:</strong> Ama Tetteh [SSW-1234]</p><p><strong>Address Line 1:</strong> 18 Gongyuan Rd, Gexin Lu</p><p><strong>City:</strong> Guangzhou</p><p><strong>Province:</strong> Guangdong</p><p><strong>Postal Code:</strong> 510405</p><p><strong>Country:</strong> China</p><p><strong>Phone:</strong> +86 185 1234 5678</p></div>
+                        <button id="copy-address-btn" class="btn btn-primary"><i class="fas fa-copy"></i> Copy Address</button>
+                    </div>
+                    <div class="important-notes"><h4><i class="fas fa-exclamation-triangle"></i> Important</h4><p>Always include your full name and unique ID <strong>[SSW-1234]</strong> in the name or address field to ensure your packages are assigned to your account correctly.</p></div>
+                 </div>
+            </div>
+
+            <!-- Wallet View -->
+            <div id="wallet-view" class="content-panel">
+                 <header class="dashboard-header"><h1>My Wallet</h1></header>
+                 <div class="wallet-balance-card" data-aos="fade-up"><span class="label">Current Balance</span><span class="value">₵500.00</span><button class="btn btn-primary" id="open-deposit-modal">Deposit Funds</button></div>
+                 <div class="dash-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-toolbar"><h3>Transaction History</h3></div>
+                    <div class="transaction-table">
+                        <div class="table-header"><div>Date</div><div>Description</div><div class="text-right">Amount</div></div>
+                        <div class="table-row"><div>25 Oct 2024</div><div>Deposit via Mobile Money</div><div class="amount-credit text-right">+ ₵500.00</div></div>
+                        <div class="table-row"><div>24 Oct 2024</div><div>Payment for Order #LO-5678</div><div class="amount-debit text-right">- ₵275.00</div></div>
+                        <div class="table-row"><div>20 Oct 2024</div><div>Shipping Fee for #LO-5675</div><div class="amount-debit text-right">- ₵150.00</div></div>
+                        <div class="table-row"><div>15 Oct 2024</div><div>Refund for cancelled item</div><div class="amount-credit text-right">+ ₵80.00</div></div>
+                    </div>
+                 </div>
+            </div>
+
+            <!-- Settings View -->
+            <div id="settings-view" class="content-panel">
+                <header class="dashboard-header"><h1>Account Settings</h1></header>
+                <div class="dash-card" data-aos="fade-up">
+                    <h3>Profile Information</h3>
+                    <form class="settings-form">
+                        <div class="form-group-grid"><div class="form-group"><label for="setting-name">Full Name</label><input type="text" id="setting-name" value="Ama Tetteh"></div><div class="form-group"><label for="setting-email">Email Address</label><input type="email" id="setting-email" value="ama.tetteh@example.com" disabled></div><div class="form-group"><label for="setting-phone">WhatsApp Phone Number</label><input type="tel" id="setting-phone" value="024 123 4567"><small class="form-helper-text">Used for important delivery notifications.</small></div></div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+                <div class="dash-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3>Change Password</h3>
+                    <form class="settings-form">
+                        <div class="form-group"><label for="current-password">Current Password</label><input type="password" id="current-password" placeholder="••••••••"></div>
+                        <div class="form-group"><label for="new-password">New Password</label><input type="password" id="new-password" placeholder="••••••••"></div>
+                        <div class="form-group"><label for="confirm-password">Confirm New Password</label><input type="password" id="confirm-password" placeholder="••••••••"></div>
+                        <button type="submit" class="btn btn-primary">Update Password</button>
+                    </form>
+                </div>
+                <div class="dash-card danger-zone" data-aos="fade-up" data-aos-delay="200">
+                    <h3>Danger Zone</h3>
+                    <div class="danger-zone-content">
+                        <p>Deleting your account is a permanent action and cannot be undone.</p>
+                        <!-- CRITICAL FIX: Added btn and btn-danger classes -->
+                        <button type="button" class="btn btn-danger" id="delete-account-btn">Delete My Account</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <div class="modal-overlay" id="deposit-modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="modal-close">&times;</button>
+            <h3>Deposit Funds</h3>
+            <p class="text-muted">Enter the amount you wish to add to your wallet.</p>
+            <form class="modal-form">
+                <div class="form-group">
+                    <label for="deposit-amount">Amount (GHS)</label>
+                    <input type="number" id="deposit-amount" placeholder="e.g., 200" required>
+                </div>
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <div class="payment-options">
+                        <button type="button" class="payment-method-btn active"><i class="fas fa-mobile-alt"></i> Mobile Money</button>
+                        <button type="button" class="payment-method-btn"><i class="fas fa-credit-card"></i> Card</button>
+                    </div>
+                </div>
+                <!-- CRITICAL FIX: Added btn and btn-primary classes -->
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px; padding: 15px;">Proceed to Payment</button>
+            </form>
+        </div>
+    </div>
+
+    
+
+    
+
+    <script src="js/dashboard.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+</body>
+</html>

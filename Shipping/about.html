@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - ShipSwift</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+<body class="is-logged-in">
+
+     <header class="main-header">
+        <nav class="container main-nav"><a href="index.html" class="logo">ShipSwift</a><div class="header-search"><input type="text" placeholder="Search for products..."><button><i class="fas fa-search"></i></button></div><div class="nav-right"><a href="cart.html" class="header-cart-link"><i class="fas fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span>Cart</a><div class="logged-out-view"><a href="login.html" class="btn btn-primary">Login / Sign Up</a></div><div class="logged-in-view"><div class="user-profile-widget"><div class="profile-avatar-sm">A</div><div class="profile-dropdown"><div class="dropdown-header"><strong>Ama Tetteh</strong><small>SSW-1234</small></div><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a><a href="dashboard.html" class="nav-action-trigger" data-target="settings-view"><i class="fas fa-cog"></i> Settings</a><a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a></div></div></div><i class="fas fa-bars hamburger" id="hamburger-menu"></i></div></nav><div class="secondary-nav"><div class="container"><ul class="nav-links" id="nav-links"><li><a href="shop.html">Deals</a></li><li><a href="shop.html">Top Products</a></li><li><a href="#">Support</a></li><li class="separator">|</li><li><a href="order.html">Order with Link</a></li><li><a href="#">Ship My Goods</a></li></ul></div></div>
+    </header>
+
+    <main>
+        <div class="page-header" data-aos="fade-up">
+            <h1>Bridging Ghana and the World's Biggest Market</h1>
+            <p class="text-muted">We are more than a shipping company; we are your dedicated partner in global trade.</p>
+        </div>
+
+        <section class="container about-section" data-aos="fade-up" data-aos-delay="100">
+            <div class="about-grid">
+                <div class="about-content">
+                    <h2>Our Mission</h2>
+                    <p>At ShipSwift, our mission is to empower Ghanaian individuals and businesses by providing simple, transparent, and reliable access to the Chinese market. We believe that distance should not be a barrier to opportunity, and we've built our platform to handle every complexity of international procurement and logistics, so you don't have to.</p>
+                    <p>From sourcing products on 1688 to shipping bulk cargo for your business, we are committed to being the most stress-free link in your supply chain.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80" alt="Team collaborating">
+                </div>
+            </div>
+        </section>
+
+        <section class="values-section" data-aos="fade-up">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Core Values</h2>
+                </div>
+                <div class="values-grid">
+                    <div class="value-card"><div class="value-icon"><i class="fas fa-eye"></i></div><h4>Transparency</h4><p>No hidden fees. Live tracking. Clear communication. You'll always know where your items are and what you're paying for.</p></div>
+                    <div class="value-card"><div class="value-icon"><i class="fas fa-shield-alt"></i></div><h4>Reliability</h4><p>We leverage trusted partners and a robust logistics network to ensure your goods arrive safely and on schedule.</p></div>
+                    <div class="value-card"><div class="value-icon"><i class="fas fa-hands-helping"></i></div><h4>Customer-First</h4><p>Your success is our success. Our support team is always ready to help you navigate the world of global e-commerce.</p></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="professional-footer">
+        <div class="container footer-grid"><div class="footer-col"><a href="index.html" class="logo">ShipSwift</a><p>Your all-in-one platform for e-commerce, procurement, and shipping from China to Ghana.</p><div class="social-icons"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-twitter"></i></a></div></div><div class="footer-col"><h4>Services</h4><ul><li><a href="shop.html">Shop Our Store</a></li><li><a href="order.html">Order with a Link</a></li><li><a href="#">Ship My Goods</a></li><li><a href="#">Business Logistics</a></li></ul></div><div class="footer-col"><h4>Support</h4><ul><li><a href="#">FAQ</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Track Order</a></li><li><a href="#">Terms of Service</a></li></ul></div><div class="footer-col"><h4>Stay Updated</h4><p>Get the latest deals and product trends straight to your inbox.</p><form class="newsletter-form"><input type="email" placeholder="Enter your email"><button type="submit"><i class="fas fa-paper-plane"></i></button></form></div></div><div class="footer-bottom"><p>&copy; 2024 ShipSwift. All Rights Reserved.</p></div>
+    </footer>
+
+     <script type="module" src="js/supabase-client.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/e-commerce.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+</body>
+</html>

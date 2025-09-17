@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <script type="module" src="js/supabase-client.js"></script>
+    <script type="module" src="js/maintenance-check.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C2G Mall - Shop China. Ship To Ghana. Stress-Free.</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+<body class="is-logged-in"> <!-- Simulate a logged-in state for header -->
+ <header class="main-header">
+        <nav class="container main-nav">
+            <a href="index.html" class="logo">C2G Mall</a>
+           
+            <div class="nav-right"><a href="cart.html" class="header-cart-link">
+                <i class="fas fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span>Cart</a>
+                <div class="logged-out-view"><a href="login.html" class="btn btn-primary">Login / Sign Up</a></div>
+                <div class="logged-in-view"><div class="user-profile-widget"><div class="profile-avatar-sm">A</div>
+                <div class="profile-dropdown"><div class="dropdown-header"><strong>Ama Tetteh</strong><small>SSW-1234</small></div>
+                <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                <a href="dashboard.html" class="nav-action-trigger" data-target="settings-view">
+                    <i class="fas fa-cog"></i> Settings</a><a href="login.html">
+                        <i class="fas fa-sign-out-alt"></i> Logout</a></div></div>
+                    </div><i class="fas fa-bars hamburger" id="hamburger-menu"></i>
+                </div>
+                </nav>
+                    <div class="secondary-nav">
+                        <div class="container">
+                        <ul class="nav-links" id="nav-links">
+                            <li><a href="shop.html">Deals</a></li><li><a href="shop.html">Top Products</a></li><li><a href="#">Support</a></li><li class="separator">|</li><li><a href="order.html">Order with Link</a></li><li><a href="#">Ship My Goods</a></li></ul></div></div>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1 data-aos="fade-up">Shop China. Ship Ghana. <br>Stress-Free.</h1>
+                <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">Your all-in-one platform for e-commerce, procurement, and logistics.</p>
+                <div class="hero-ctas" data-aos="fade-up" data-aos-delay="200">
+                    <a href="shop.html" class="btn btn-primary">Shop Our Store</a>
+                    <a href="order.html" class="btn btn-secondary">Order with a Link</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW: Supported Platforms -->
+        <section class="supported-platforms" data-aos="fade-up">
+            <div class="container">
+                <p>Procure from all your favorite Chinese marketplaces</p>
+                <div class="logos-container">
+                    <img src="https://img.alicdn.com/tfs/TB1_uT8a21TBuNjy0FjXXajyXXa-160-42.svg" alt="1688 Logo">
+                    <img src="https://img.alicdn.com/tfs/TB1VlKFRpXXXXaNapXXXXXXXXXX-48-48.png" alt="Taobao Logo">
+                    <img src="https://img.alicdn.com/tfs/TB10.r8a21TBuNjy0FjXXajyXXa-160-42.svg" alt="Alibaba Logo">
+                    <img src="https://tmall.alicdn.com/favicon.ico" alt="Tmall Logo" style="height: 48px; width: 48px;">
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW: Our Services -->
+        <section class="services-section container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>One Platform, Three Powerful Services</h2>
+                <p>Whether you're shopping, procuring, or shipping, we have a solution tailored for you.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-icon"><i class="fas fa-store"></i></div>
+                    <h4>Shop Our E-commerce Store</h4>
+                    <p>Browse and buy from our curated catalog of trending products. We handle everything from purchase to delivery. Just like any online store, but with global products at your fingertips.</p>
+                    <a href="shop.html" class="learn-more-link">Start Shopping <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-icon"><i class="fas fa-link"></i></div>
+                    <h4>Order with Any Link</h4>
+                    <p>Found a product on 1688, Taobao, or another Chinese site? Simply paste the link, and our procurement team in China will buy it on your behalf and ship it to you.</p>
+                    <a href="order.html" class="learn-more-link">Procure Now <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-icon"><i class="fas fa-box-open"></i></div>
+                    <h4>Ship Your Goods</h4>
+                    <p>Already bought your items? Use our reliable and affordable logistics service. Ship your personal packages or business cargo from our China warehouse directly to Ghana.</p>
+                    <a href="#" class="learn-more-link">Get a Shipping Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- (Existing How-It-Works section can be kept or removed, as Services section is more detailed) -->
+
+        <section class="featured-products" data-aos="fade-up">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Featured Products</h2>
+                    <p>Check out our best-selling and trending items, ready to ship.</p>
+                </div>
+                <div class="product-grid" id="featured-product-grid">
+                    <!-- Featured products will be injected by JavaScript -->
+                </div>
+                <div class="text-center" style="margin-top: 40px;">
+                    <a href="shop.html" class="btn btn-primary">Explore All Products</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW: Shipping Calculator Widget -->
+        <section class="calculator-widget-section">
+            <div class="container" data-aos="fade-up">
+                <div class="calculator-widget-card">
+                    <div class="calculator-content">
+                        <h2>Instant Shipping Estimate</h2>
+                        <p>Get a quick estimate of your shipping costs from China to Ghana. Enter your package details below.</p>
+                        <form id="home-shipping-calculator">
+                            <div class="form-row">
+                                <div class="form-group"><label>Weight (kg)</label><input type="number" id="calc-weight" placeholder="e.g., 2.5"></div>
+                                <div class="form-group"><label>Shipping Method</label><select id="calc-method"><option value="air">Air Freight (Fast)</option><option value="sea">Sea Freight (Affordable)</option></select></div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Calculate</button>
+                        </form>
+                    </div>
+                    <div class="calculator-result">
+                        <p>Estimated Cost</p>
+                        <h3 id="calc-result">₵0.00</h3>
+                        <small>This is an estimate. Final costs are based on actual weight and dimensions at our warehouse.</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials" data-aos="fade-up">
+            <!-- (Existing Testimonials section content goes here) -->
+        </section>
+
+        <!-- NEW: For Businesses Section -->
+        <section class="business-section" data-aos="fade-up">
+            <div class="container business-grid">
+                <div class="business-image">
+                    <img src="https://images.unsplash.com/photo-1578575437130-5278ce68f69b?auto=format&fit=crop&w=800&q=80" alt="Warehouse logistics">
+                </div>
+                <div class="business-content">
+                    <h2>Powering Ghanaian Businesses</h2>
+                    <p>Are you an SME importing goods for your business? We offer specialized bulk shipping, procurement, and logistics solutions designed to help you grow. Enjoy competitive rates, dedicated support, and reliable delivery schedules.</p>
+                    <a href="#" class="btn btn-primary">Learn About Business Solutions</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section" data-aos="fade-up">
+            <!-- (Existing CTA section content goes here) -->
+        </section>
+    </main>
+    
+    <footer class="professional-footer">
+        <div class="container footer-grid"><div class="footer-col"><a href="index.html" class="logo">ShipSwift</a><p>Your all-in-one platform for e-commerce, procurement, and shipping from China to Ghana.</p><div class="social-icons"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-twitter"></i></a></div></div><div class="footer-col"><h4>Services</h4><ul><li><a href="shop.html">Shop Our Store</a></li><li><a href="order.html">Order with a Link</a></li><li><a href="#">Ship My Goods</a></li><li><a href="#">Business Logistics</a></li></ul></div><div class="footer-col"><h4>Support</h4><ul><li><a href="#">FAQ</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Track Order</a></li><li><a href="#">Terms of Service</a></li></ul></div><div class="footer-col"><h4>Stay Updated</h4><p>Get the latest deals and product trends straight to your inbox.</p><form class="newsletter-form"><input type="email" placeholder="Enter your email"><button type="submit"><i class="fas fa-paper-plane"></i></button></form></div></div><div class="footer-bottom"><p>&copy; 2024 ShipSwift. All Rights Reserved.</p></div>
+    </footer>
+
+     <script type="module" src="js/supabase-client.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/e-commerce.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+</body>
+</html>

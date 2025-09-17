@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walmart | Save Money. Live better.</title>
+    <link rel="icon" type="image/x-icon" href="https://i5.walmartimages.com/dfw/63fd9f59-14e2/9d304ce6-96de-4331-b8ec-c5191226d378/v1/spark-icon.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #007dc6 0%, #004b91 100%);
+        }
+        .deal-card {
+            transition: all 0.3s ease;
+        }
+        .deal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .nav-link:hover {
+            color: #007dc6;
+        }
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Top Navigation -->
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="flex-shrink-0">
+                        <img class="h-8 w-auto" src="https://i5.walmartimages.com/dfw/63fd9f59-14e2/9d304ce6-96de-4331-b8ec-c5191226d378/v1/spark-icon.svg" alt="Walmart">
+                    </a>
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <a href="#" class="border-blue-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Departments</a>
+                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Services</a>
+                    </div>
+                </div>
+                <div class="hidden md:ml-6 md:flex md:items-center md:space-x-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Search Walmart" class="w-96 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button class="absolute right-3 top-2 text-gray-500">
+                            <i data-feather="search"></i>
+                        </button>
+                    </div>
+                    <a href="#" class="text-gray-500 hover:text-gray-700">
+                        <i data-feather="user"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-700">
+                        <i data-feather="heart"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-700 relative">
+                        <i data-feather="shopping-cart"></i>
+                        <span class="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <div class="gradient-bg text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 mb-8 md:mb-0" data-aos="fade-right">
+                    <h1 class="text-4xl font-bold mb-4">Save Money. Live better.</h1>
+                    <p class="text-xl mb-6">Shop thousands of products with fast delivery or convenient pickup</p>
+                    <div class="flex space-x-4">
+                        <button class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-6 rounded-full">Shop now</button>
+                        <button class="bg-white hover:bg-gray-100 text-blue-700 font-bold py-2 px-6 rounded-full">Learn more</button>
+                    </div>
+                </div>
+                <div class="md:w-1/2" data-aos="fade-left">
+                    <img src="https://i5.walmartimages.com/dfw/4ff9c6c9-844c/k2-_3dcbf080-6ee6-456a-b340-e80b64434d52.v1.jpg" alt="Hero image" class="rounded-lg shadow-xl">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Categories -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h2 class="text-2xl font-bold mb-8">Shop by Category</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden deal-card">
+                <img src="https://i5.walmartimages.com/dfw/4ff9c6c9-8c8b/k2-_d38552b8-8f53-4002-90b8-afadecc2389d.v1.jpg" alt="Electronics" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold mb-2">Electronics</h3>
+                    <p class="text-gray-600 text-sm mb-3">Get savings on top tech</p>
+                    <a href="#" class="text-blue-600 font-medium text-sm">Shop now →</a>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden deal-card">
+                <img src="https://i5.walmartimages.com/dfw/4ff9c6c9-50ba/k2-_a5a7c6a6-bd0d-49f5-b856-eea0d2148163.v1.jpg" alt="Toys" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold mb-2">Toys</h3>
+                    <p class="text-gray-600 text-sm mb-3">Up to 30% off LEGO®</p>
+                    <a href="#" class="text-blue-600 font-medium text-sm">Shop now →</a>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden deal-card">
+                <img src="https://i5.walmartimages.com/dfw/4ff9c6c9-a993/k2-_d81e495a-b924-475b-846f-abf2d0e77c37.v1.jpg" alt="Home" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold mb-2">Home</h3>
+                    <p class="text-gray-600 text-sm mb-3">Fall refresh from $9.78</p>
+                    <a href="#" class="text-blue-600 font-medium text-sm">Shop now →</a>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden deal-card">
+                <img src="https://i5.walmartimages.com/dfw/4ff9c6c9-112e/k2-_45ebdf8e-60ae-4d60-b24a-dadffe51f23c.v1.jpg" alt="Tech" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold mb-2">Tech</h3>
+                    <p class="text-gray-600 text-sm mb-3">Editors' picks</p>
+                    <a href="#" class="text-blue-600 font-medium text-sm">Shop now →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Walmart+ Section -->
+    <div class="bg-gray-100 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="md:flex">
+                    <div class="md:w-1/2 p-8">
+                        <div class="flex items-center mb-4">
+                            <img src="https://i5.walmartimages.com/dfw/63fd9f59-30b3/629cc93a-dae2-4b74-afd7-faecce345c85/v1/wplus-indigo-rebrand-bug.svg" alt="Walmart+" class="h-10 mr-3">
+                            <span class="text-xl font-bold">Walmart+</span>
+                        </div>
+                        <h2 class="text-2xl font-bold mb-4">New! Members get to pick with Video Streaming Choice</h2>
+                        <p class="text-gray-600 mb-6">Enjoy free delivery, fuel discounts, and more with Walmart+ membership.</p>
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full">Try Walmart+ for free</button>
+                        <p class="text-xs text-gray-500 mt-4">*Additional registration required. Terms & conditions apply.</p>
+                    </div>
+                    <div class="md:w-1/2">
+                        <img src="https://i5.walmartimages.com/dfw/4ff9c6c9-439f/k2-_de662a67-e152-4abc-98e3-25be085e0c97.v1.png" alt="Walmart+ benefits" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deals Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h2 class="text-2xl font-bold mb-8">Today's Best Deals</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden deal-card">
+                <div class="md:flex">
+                    <div class="md:w-1/2">
+                        <img src="https://i5.walmartimages.com/dfw/4ff9c6c9-cbae/k2-_458fe471-7cf8-4b0a-85fc-5ae79b5d9dcc.v1.png" alt="Deal" class="w-full h-full object-cover">
+                    </div>
+                    <div class="md:w-1/2 p-6">
+                        <div class="bg-red-500 text-white text-sm font-bold px-2 py-1 rounded inline-block mb-3">Up to 65% off</div>
+                        <h3 class="text-xl font-bold mb-3">Flash Deals</h3>
+                        <p class="text-gray-600 mb-4">Limited time offers on top products</p>
+                        <a href="#" class="text-blue-600 font-medium">Shop now →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden deal-card">
+                <div class="md:flex">
+                    <div class="md:w-1/2">
+                        <img src="https://i5.walmartimages.com/dfw/4ff9c6c9-9e6a/k2-_6791ea8f-5d70-401b-ad01-b726d27e0c27.v1.png" alt="Under $50" class="w-full h-full object-cover">
+                    </div>
+                    <div class="md:w-1/2 p-6">
+                        <div class="bg-green-500 text-white text-sm font-bold px-2 py-1 rounded inline-block mb-3">Under $50</div>
+                        <h3 class="text-xl font-bold mb-3">Budget Finds</h3>
+                        <p class="text-gray-600 mb-4">Quality products at affordable prices</p>
+                        <a href="#" class="text-blue-600 font-medium">Shop now →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Customer Service</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white">Help</a></li>
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white">Returns</a></li>
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white">Order Status</a></li>
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white">Gift Cards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">About Walmart</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white">Our Company</a></li>
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white">Careers</a></li>
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white">Sustainability</a></li>
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white">Investors</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white">Walmart+</a></li>
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white">Pharmacy</a></li>
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white">Auto Care</a></li>
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white">Photo Center</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white">Store Directory</a></li>
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white">All Departments</a></li>
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white">Weekly Ad</a></li>
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white">Get the App</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="flex items-center mb-4 md:mb-0">
+                        <img src="https://i5.walmartimages.com/dfw/63fd9f59-14e2/9d304ce6-96de-4331-b8ec-c5191226d378/v1/spark-icon.svg" alt="Walmart" class="h-8 mr-2">
+                        <span class="text-sm">© 2025 Walmart. All Rights Reserved.</span>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white"><i data-feather="facebook"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i data-feather="twitter"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i data-feather="instagram"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i data-feather="youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        AOS.init();
+        feather.replace();
+    </script>
+</body>
+</html>

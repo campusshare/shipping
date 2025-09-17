@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <script type="module" src="js/supabase-client.js"></script>
+    <script type="module" src="js/maintenance-check.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ship My Goods - ShipSwift</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+<body class="is-logged-in"> <!-- Simulating a logged-in state -->
+
+         <header class="main-header">
+        <nav class="container main-nav"><a href="index.html" class="logo">ShipSwift</a><div class="header-search"><input type="text" placeholder="Search for products..."><button><i class="fas fa-search"></i></button></div><div class="nav-right"><a href="cart.html" class="header-cart-link"><i class="fas fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span>Cart</a><div class="logged-out-view"><a href="login.html" class="btn btn-primary">Login / Sign Up</a></div><div class="logged-in-view"><div class="user-profile-widget"><div class="profile-avatar-sm">A</div><div class="profile-dropdown"><div class="dropdown-header"><strong>Ama Tetteh</strong><small>SSW-1234</small></div><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a><a href="dashboard.html" class="nav-action-trigger" data-target="settings-view"><i class="fas fa-cog"></i> Settings</a><a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a></div></div></div><i class="fas fa-bars hamburger" id="hamburger-menu"></i></div></nav><div class="secondary-nav"><div class="container"><ul class="nav-links" id="nav-links"><li><a href="shop.html">Deals</a></li><li><a href="shop.html">Top Products</a></li><li><a href="#">Support</a></li><li class="separator">|</li><li><a href="order.html">Order with Link</a></li><li><a href="#">Ship My Goods</a></li></ul></div></div>
+    </header>
+
+    <main>
+        <div class="page-header" data-aos="fade-up">
+            <h1>Ship Your Goods From China to Ghana</h1>
+            <p class="text-muted">Reliable, affordable, and transparent shipping for your personal and business needs.</p>
+        </div>
+
+        <!-- Calculator Section -->
+        <section class="shipping-calculator-section container">
+            <div class="calculator-widget-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="calculator-content">
+                    <h2>Instant Shipping Estimate</h2>
+                    <p>Enter your package details to get an instant cost estimate. No hidden fees.</p>
+                    <form id="shipping-calculator-form">
+                        <div class="form-group">
+                            <label for="calc-weight">Actual Weight (kg)</label>
+                            <input type="number" id="calc-weight" placeholder="e.g., 5" required>
+                        </div>
+                        <label>Package Dimensions (cm)</label>
+                        <div class="dimensions-grid">
+                            <div class="form-group"><input type="number" id="calc-length" placeholder="Length"></div>
+                            <div class="form-group"><input type="number" id="calc-width" placeholder="Width"></div>
+                            <div class="form-group"><input type="number" id="calc-height" placeholder="Height"></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="calculator-results-container">
+                    <div class="result-card air-freight">
+                        <div class="result-header">
+                            <i class="fas fa-plane"></i>
+                            <h4>Air Freight</h4>
+                        </div>
+                        <div class="result-price" id="air-freight-result">₵0.00</div>
+                        <div class="result-eta">Est. 10-25 Days</div>
+                    </div>
+                    <div class="result-card sea-freight">
+                        <div class="result-header">
+                            <i class="fas fa-ship"></i>
+                            <h4>Sea Freight</h4>
+                        </div>
+                        <div class="result-price" id="sea-freight-result">₵0.00</div>
+                        <div class="result-eta">Est. 45-60 Days</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="how-it-works" data-aos="fade-up">
+             <div class="container">
+                <div class="section-title">
+                    <h2>Our Simple 4-Step Shipping Process</h2>
+                </div>
+                <div class="steps-grid four-steps">
+                    <div class="step"><div class="step-icon"><i class="fas fa-map-marker-alt"></i></div><h4>1. Get Your Address</h4><p>Sign up and get your unique, free China warehouse address from your dashboard.</p></div>
+                    <div class="step"><div class="step-icon"><i class="fas fa-truck-loading"></i></div><h4>2. Ship to Warehouse</h4><p>Shop from any Chinese supplier and use your ShipSwift address as the shipping destination.</p></div>
+                    <div class="step"><div class="step-icon"><i class="fas fa-wallet"></i></div><h4>3. Pay for Freight</h4><p>We'll notify you when your package arrives. You then pay the final shipping fee to Ghana.</p></div>
+                    <div class="step"><div class="step-icon"><i class="fas fa-box-open"></i></div><h4>4. Receive in Ghana</h4><p>We handle customs clearing and deliver your package right to your doorstep. It's that easy!</p></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Service Options Section -->
+        <section class="services-section container" data-aos="fade-up">
+            <div class="services-grid two-cols">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-user"></i></div>
+                    <h4>Personal Shipping</h4>
+                    <p>Perfect for individuals shopping online for personal items. We consolidate your packages to save you money and provide detailed tracking every step of the way.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-briefcase"></i></div>
+                    <h4>Business Shipping</h4>
+                    <p>Ideal for SMEs and importers. We offer competitive rates for bulk cargo, dedicated support, and reliable logistics to help your business grow and thrive.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section" data-aos="fade-up">
+            <div class="container">
+                <h2>Ready to Ship?</h2>
+                <p>Sign up to get your free China warehouse address and start shipping today!</p>
+                <a href="signup.html" class="btn btn-cta">Get Started Now</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="professional-footer">
+        <!-- The Final, Complete Footer code goes here -->
+    </footer>
+
+      <script type="module" src="js/supabase-client.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/e-commerce.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+</body>
+</html>

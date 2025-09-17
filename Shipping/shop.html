@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <script type="module" src="js/supabase-client.js"></script>
+    <script type="module" src="js/maintenance-check.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Products - C2G Mall</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+<body class="is-logged-in"> <!-- Simulating a logged-in state -->
+
+   
+        <header class="main-header">
+        <nav class="container main-nav"><a href="index.html" class="logo">C2G Mall</a>
+            <div class="header-search"><input type="text" placeholder="Search for products...">
+                <button><i class="fas fa-search"></i></button></div><div class="nav-right">
+                    <a href="cart.html" class="header-cart-link"><i class="fas fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span>Cart</a>
+                    <div class="logged-out-view"><a href="login.html" class="btn btn-primary">Login / Sign Up</a></div>
+                    <div class="logged-in-view"><div class="user-profile-widget"><div class="profile-avatar-sm">A</div>
+                    <div class="profile-dropdown"><div class="dropdown-header"><strong>Ama Tetteh</strong><small>SSW-1234</small></div>
+                    <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    <a href="dashboard.html" class="nav-action-trigger" data-target="settings-view"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a></div>
+                </div>
+            </div>
+            <i class="fas fa-bars hamburger" id="hamburger-menu"></i></div>
+        </nav><div class="secondary-nav"><div class="container">
+            <ul class="nav-links" id="nav-links"><li><a href="shop.html">Deals</a>
+            </li><li><a href="shop.html">Top Products</a></li><li><a href="#">Support</a>
+            </li><li class="separator">|</li><li><a href="order.html">Order with Link</a></li>
+            <li><a href="#">Ship My Goods</a></li></ul></div></div>
+    </header>
+   
+   <main class="container">
+        <div class="shop-header">
+            <div class="breadcrumbs">
+                <a href="index.html">Home</a> <i class="fas fa-chevron-right"></i> <span>Shop</span>
+            </div>
+            <h1>All Products</h1>
+        </div>
+
+        <div class="shop-layout">
+            <!-- (!!!) NEW PROFESSIONAL SIDEBAR (!!!) -->
+            <aside class="shop-sidebar" id="filters-sidebar">
+                <div class="sidebar-header">
+                    <h4><i class="fas fa-filter"></i> Filter & Refine</h4>
+                    <button class="close-filters-btn" id="close-filters-btn">&times;</button>
+                </div>
+                
+                <div class="active-filters-widget" id="active-filters-container">
+                    <!-- Active filter pills will be shown here by JS -->
+                </div>
+
+                <div class="filter-widget collapsible open">
+                    <h5 class="widget-title">Shop by Department</h5>
+                    <div class="widget-content category-list" id="category-filters">
+                        <!-- Categories will be injected by JS -->
+                    </div>
+                </div>
+
+                <div class="filter-widget collapsible open">
+                    <h5 class="widget-title">Price</h5>
+                    <div class="widget-content">
+                        <ul class="filter-list" id="price-filters">
+                           <li><a href="#" data-price="0-100">Under ₵100</a></li>
+                           <li><a href="#" data-price="100-500">₵100 to ₵500</a></li>
+                           <li><a href="#" data-price="500-1000">₵500 to ₵1000</a></li>
+                           <li><a href="#" data-price="1000-99999">Over ₵1000</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Product Grid -->
+            <div class="product-listing-main">
+                <div class="shop-toolbar">
+                    <button class="mobile-filter-btn" id="mobile-filter-btn"><i class="fas fa-sliders-h"></i> Filters</button>
+                    <div class="product-count" id="product-count-display"></div>
+                    <select id="sort-by">
+                        <option value="default">Sort by: Featured</option>
+                        <option value="newest">Newest Arrivals</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                    </select>
+                </div>
+                <div class="product-grid" id="product-grid">
+                    <!-- Products will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="professional-footer">
+        <!-- The Final, Complete Footer code goes here -->
+    </footer>
+    
+    <!-- Modals for Quick View, Added to Cart, etc. -->
+    <div class="modal-overlay" id="quick-view-overlay"></div>
+    <div id="added-to-cart-notification" class="added-to-cart-notification"></div>
+
+    <script type="module" src="js/supabase-client.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/e-commerce.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="module" src="js/supabase-client.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/e-commerce.js"></script>
+    <script type="module" src="js/supabase-client.js"></script>
+    <script type="module" src="js/maintenance-check.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - ShipSwift</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+<body class="is-logged-in"> <!-- Simulating a logged-in state -->
+
+         <header class="main-header">
+        <nav class="container main-nav"><a href="index.html" class="logo">ShipSwift</a><div class="header-search"><input type="text" placeholder="Search for products..."><button><i class="fas fa-search"></i></button></div><div class="nav-right"><a href="cart.html" class="header-cart-link"><i class="fas fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span>Cart</a><div class="logged-out-view"><a href="login.html" class="btn btn-primary">Login / Sign Up</a></div><div class="logged-in-view"><div class="user-profile-widget"><div class="profile-avatar-sm">A</div><div class="profile-dropdown"><div class="dropdown-header"><strong>Ama Tetteh</strong><small>SSW-1234</small></div><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a><a href="dashboard.html" class="nav-action-trigger" data-target="settings-view"><i class="fas fa-cog"></i> Settings</a><a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a></div></div></div><i class="fas fa-bars hamburger" id="hamburger-menu"></i></div></nav><div class="secondary-nav"><div class="container"><ul class="nav-links" id="nav-links"><li><a href="shop.html">Deals</a></li><li><a href="shop.html">Top Products</a></li><li><a href="#">Support</a></li><li class="separator">|</li><li><a href="order.html">Order with Link</a></li><li><a href="#">Ship My Goods</a></li></ul></div></div>
+    </header>
+
+    <main class="container" id="product-details-container">
+        <!-- All product details content will be dynamically injected here by JavaScript -->
+        <!-- This container is intentionally left empty -->
+    </main>
+
+    <footer class="professional-footer">
+        <!-- The Final, Complete Footer code goes here -->
+    </footer>
+
+    <!-- Modals for Quick View, Added to Cart, etc. -->
+    <div id="added-to-cart-notification" class="added-to-cart-notification"></div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+</body>
+</html>
