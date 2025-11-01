@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <script type="module" src="js/supabase-client.js"></script>
+    <script type="module" src="js/admin-auth-guard.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Admin Dashboard - C2G Logistics</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="dashboard-body">
+
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar" id="admin-sidebar">
+            <a href="#" data-target="dashboard-view" class="logo nav-action-trigger">C2G Logistics</a>
+            <nav class="sidebar-nav" id="admin-sidebar-nav">
+                <ul>
+                    <li><a href="#" class="active" data-target="dashboard-view"><i
+                                class="icon fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                    <li><a href="#" data-target="orders-view"><i class="icon fas fa-file-invoice-dollar"></i>
+                            <span>Orders</span></a></li>
+                    <li><a href="#" data-target="products-view"><i class="icon fas fa-store"></i>
+                            <span>Products</span></a></li>
+                    <li><a href="#" data-target="shipments-view"><i class="icon fas fa-box-open"></i>
+                            <span>Shipments</span></a></li>
+                    <li><a href="#" data-target="customers-view"><i class="icon fas fa-users"></i>
+                            <span>Customers</span></a></li>
+                    <li><a href="#" data-target="settings-view"><i class="icon fas fa-cog"></i>
+                            <span>Settings</span></a></li>
+                    <li><a href="#announcements-view" data-target="announcements-view">
+                            <i class="icon fas fa-bullhorn"></i> <span>Announcements</span>
+                        </a></li>
+                    <li><a href="admin-login.html" id="admin-logout-btn"><i class="icon fas fa-sign-out-alt"></i>
+                            <span>Logout</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="dashboard-main">
+            <header class="mobile-dashboard-header">
+                <button class="hamburger" id="admin-hamburger"><i class="fas fa-bars"></i></button>
+                <span class="mobile-header-title" id="admin-header-title">Dashboard</span>
+            </header>
+
+            <!-- Dashboard Overview Panel -->
+            <div id="dashboard-view" class="content-panel active">
+                <header class="dashboard-header">
+                    <h1>Dashboard Overview</h1>
+                </header>
+                <div class="dashboard-grid">
+                    <div class="stat-card clickable-stat" data-stat="new-orders">
+                        <div class="icon"><i class="fas fa-file-alt"></i></div>
+                        <div class="value">0</div>
+                        <div class="label">New Orders Today</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon"><i class="fas fa-money-bill-wave"></i></div>
+                        <div class="value">₵0.00</div>
+                        <div class="label">Revenue (Month)</div>
+                    </div>
+                    <div class="stat-card clickable-stat" data-stat="pending-actions">
+                        <div class="icon attention-icon"><i class="fas fa-exclamation-circle"></i></div>
+                        <div class="value">0</div>
+                        <div class="label">Pending Actions</div>
+                    </div>
+                    <div class="stat-card clickable-stat" data-stat="warehouse-packages">
+                        <div class="icon"><i class="fas fa-warehouse"></i></div>
+                        <div class="value">0</div>
+                        <div class="label">At Warehouse</div>
+                    </div>
+                </div>
+                <div class="admin-main-grid">
+                    <div class="dash-card">
+                        <h3><i class="fas fa-exclamation-triangle attention-icon"></i> Low Stock Alerts</h3>
+                        <div class="alert-list">
+                            <p class="meta" style="text-align: center; padding: 1rem;">Loading alerts...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dash-card">
+                    <h3>Weekly Order Volume</h3>
+                    <div class="chart-container"><canvas id="ordersChart"></canvas></div>
+                </div>
+            </div>
+
+            <!-- Order Management Panel -->
+            <div id="orders-view" class="content-panel">
+                <header class="dashboard-header">
+                    <h1>Manage Orders</h1>
+                </header>
+                <div class="dash-card">
+                    <div class="card-toolbar">
+                        <div class="search-bar-admin"><i class="fas fa-search"></i><input type="text"
+                                id="order-search-input" placeholder="Search by Order ID, Customer..."></div>
+                        <div class="filter-controls">
+                            <select id="order-status-filter">
+                                <option value="all">All Statuses</option>
+                                <option value="new">New</option>
+                                <option value="awaiting_payment">Awaiting Payment</option>
+                                <option value="processing">Processing</option>
+                                <option value="purchased">Purchased</option>
+                                <option value="in-transit">In Transit</option>
+                                <option value="delivered">Delivered</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                            <select id="order-type-filter">
+                                <option value="all">All Types</option>
+                                <option value="link_order">Link Order</option>
+                                <option value="ecom">E-commerce</option>
+                                <option value="proc">Procurement</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="admin-data-table" id="orders-table-container">
+                        <p class="meta" style="text-align: center; padding: 1rem;">Loading orders...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Management Panel -->
+            <div id="products-view" class="content-panel">
+                <header class="dashboard-header">
+                    <h1>Manage Products</h1>
+                </header>
+                <div class="dash-card">
+                    <div class="card-toolbar">
+                        <input type="text" id="product-search-input" placeholder="Search by Product Name or SKU...">
+                        <div class="filter-controls">
+                            <select id="product-status-filter">
+                                <option value="all">All Statuses</option>
+                                <option value="active">Active</option>
+                                <option value="draft">Draft</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                            <select id="product-category-filter">
+                                <option value="all">All Categories</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Fashion">Fashion</option>
+                                <option value="Home Goods">Home Goods</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" id="add-product-btn"><i class="fas fa-plus"></i> Add New
+                            Product</button>
+                    </div>
+                    <div class="admin-data-table" id="products-table-container">
+                        <p class="meta" style="text-align: center; padding: 1rem;">Loading products...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shipments Management Panel -->
+            <div id="shipments-view" class="content-panel">
+                <header class="dashboard-header">
+                    <h1>Manage Shipments</h1>
+                </header>
+                <div class="dash-card">
+                    <div class="card-toolbar">
+                        <input type="text" id="shipment-search-input" placeholder="Search by Tracking # or Customer...">
+                        <div class="filter-controls">
+                            <select id="shipment-status-filter">
+                                <option value="all">All Statuses</option>
+                                <option value="pending">Pending</option>
+                                <option value="awaiting_arrival">Awaiting Arrival (China)</option>
+                                <option value="in_warehouse">In Warehouse</option>
+                                <option value="in_transit">In Transit</option>
+                                <option value="clearing_customs">Customs Clearance</option>
+                                <option value="ready_for_pickup">Ready for Pickup/Delivery</option>
+                                <option value="delivered">Delivered</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" id="add-shipment-btn"><i class="fas fa-plus"></i> Add
+                            Shipment</button>
+                    </div>
+                    <div class="admin-data-table" id="shipments-table-container">
+                        <p class="meta" style="text-align: center; padding: 1rem;">Loading shipments...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customers Management Panel -->
+            <div id="customers-view" class="content-panel">
+                <header class="dashboard-header">
+                    <h1>Manage Customers</h1>
+                </header>
+                <div class="dash-card">
+                    <div class="card-toolbar">
+                        <input type="text" id="customer-search-input" placeholder="Search by Name, Email, or Phone...">
+                    </div>
+                    <div class="admin-data-table" id="customers-table-container">
+                        <p class="meta" style="text-align: center; padding: 1rem;">Loading customers...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="announcements-view" class="content-panel">
+                <header class="dashboard-header">
+                    <h1>Manage Announcements</h1>
+                </header>
+                <div class="dash-card">
+                    <div class="card-toolbar">
+                        <button id="add-announcement-btn" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Create Announcement
+                        </button>
+                    </div>
+                    <div class="admin-data-table" id="announcements-admin-table">
+                        <p class="meta">Loading announcements...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Panel -->
+            <div id="settings-view" class="content-panel">
+                <header class="dashboard-header">
+                    <h1>Settings</h1>
+                </header>
+                <div class="settings-layout">
+                    <nav class="settings-nav">
+                        <ul>
+                            <li><a href="#general-settings-panel" class="active" data-target="general-settings-panel"><i
+                                        class="fas fa-cog"></i> General</a></li>
+                            <li><a href="#shipping-rates-panel" data-target="shipping-rates-panel"><i
+                                        class="fas fa-dollar-sign"></i> Shipping Rates</a></li>
+                            <li><a href="#admin-profile-panel" data-target="admin-profile-panel"><i
+                                        class="fas fa-user-shield"></i> Admin Profile</a></li>
+                            <li><a href="#advanced-settings-panel" data-target="advanced-settings-panel"><i
+                                        class="fas fa-tools"></i> Advanced</a></li>
+                        </ul>
+                    </nav>
+                    <div class="settings-content">
+                        <!-- General Settings Panel -->
+                        <div id="general-settings-panel" class="settings-panel active">
+                            <h3>General Information</h3>
+                            <form id="general-settings-form" class="modal-form">
+                                <div class="form-group"><label for="setting-store-name">Store Name</label><input
+                                        type="text" id="setting-store-name"></div>
+                                <div class="form-group"><label for="setting-public-email">Public Contact
+                                        Email</label><input type="email" id="setting-public-email"></div>
+                                <div class="form-group"><label for="setting-public-phone">Public Phone
+                                        Number</label><input type="tel" id="setting-public-phone"></div>
+                                <div class="form-group"><label for="setting-warehouse-address">China Warehouse
+                                        Address</label><textarea id="setting-warehouse-address" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save General Settings</button>
+                            </form>
+                        </div>
+
+                        <!-- Shipping Rates Panel -->
+                        <div id="shipping-rates-panel" class="settings-panel">
+                            <h3>Shipping Rates</h3>
+                            <div class="admin-data-table" id="shipping-rates-table">
+                                <p class="meta" style="text-align: center; padding: 1rem;">Loading shipping rates...</p>
+                            </div>
+                            <button class="btn btn-secondary" id="add-shipping-rate-btn" style="margin-top: 15px;"><i
+                                    class="fas fa-plus"></i> Add New Rate</button>
+                        </div>
+
+                        <!-- Admin Profile Panel -->
+                        <div id="admin-profile-panel" class="settings-panel">
+                            <h3>Admin Profile</h3>
+                            <form id="admin-profile-form" class="modal-form">
+                                <div class="form-group"><label for="setting-admin-email">Admin Email</label><input
+                                        type="email" id="setting-admin-email" disabled></div>
+                                <div class="form-group"><label for="setting-new-password">New Password</label><input
+                                        type="password" id="setting-new-password" placeholder="••••••••"></div>
+                                <div class="form-group"><label for="setting-confirm-password">Confirm New
+                                        Password</label><input type="password" id="setting-confirm-password"
+                                        placeholder="••••••••"></div>
+                                <button type="submit" class="btn btn-primary">Update Admin Profile</button>
+                            </form>
+                        </div>
+
+                        <!-- Advanced Settings Panel -->
+                        <div id="advanced-settings-panel" class="settings-panel">
+                            <h3>Advanced Settings</h3>
+                            <div class="advanced-setting-item">
+                                <div>
+                                    <h4>Maintenance Mode</h4>
+                                    <p class="meta">Temporarily disable the customer-facing website for updates.</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="maintenance-mode-toggle">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="save-advanced-settings-btn">Save Advanced
+                                Settings</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- MODALS -->
+    <div class="modal-overlay" id="order-details-modal">
+        <div class="modal-content large">
+            <button class="modal-close-btn" id="close-order-details-modal">&times;</button>
+            <div id="order-details-content"><!-- Order details will be dynamically injected here --></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="add-product-modal">
+        <div class="modal-content large">
+            <button class="modal-close-btn" id="close-product-modal">&times;</button>
+            <h3 id="product-modal-title">Add New Product</h3>
+            <form class="modal-form" id="product-form">
+                <div class="form-group"><label for="product-name">Product Name</label><input type="text"
+                        id="product-name" placeholder="e.g., Wireless Headphones" required></div>
+                <div class="form-group"><label for="product-description">Description</label><textarea
+                        id="product-description" rows="4" placeholder="Enter product details..."></textarea></div>
+                <div class="form-group-grid">
+                    <div class="form-group">
+                        <label for="product-sku">SKU</label>
+                        <div class="input-with-button">
+                            <input type="text" id="product-sku" placeholder="Auto-generated..." readonly required>
+                            <button type="button" class="btn btn-secondary btn-sm" id="regenerate-sku-btn"
+                                title="Regenerate SKU"><i class="fas fa-sync-alt"></i></button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-category">Category</label>
+                        <select id="product-category">
+                            <option>Electronics</option>
+                            <option>Fashion</option>
+                            <option>Home Goods</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group-grid">
+                    <div class="form-group"><label for="product-price">Price (GHS)</label><input type="number"
+                            id="product-price" placeholder="e.g., 850.00" step="0.01" required></div>
+                    <div class="form-group"><label for="product-stock">Stock Quantity</label><input type="number"
+                            id="product-stock" placeholder="e.g., 100" required></div>
+                </div>
+                <div class="form-group"><label>Product Status</label><select id="product-status">
+                        <option value="active">Active</option>
+                        <option value="draft">Draft</option>
+                        <option value="inactive">Inactive</option>
+                    </select></div>
+                <div class="form-group">
+                    <label for="product-image">Product Image</label>
+                    <div class="product-image-upload">
+                        <img src="https://placehold.co/150x150/e9ecef/6c757d?text=No+Image" alt="Image Preview"
+                            id="product-image-preview" class="image-preview">
+                        <div class="image-upload-actions">
+                            <input type="file" id="product-image" class="file-input" accept="image/*">
+                            <label for="product-image" class="file-label btn btn-secondary"><i
+                                    class="fas fa-upload"></i> Choose Image</label>
+                            <p class="meta">Upload a JPG, PNG, or GIF. Max 2MB.</p>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Product</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Updated Shipment Form Modal for admin-dashboard.html -->
+    <div class="modal-overlay" id="shipment-form-modal">
+        <div class="modal-content large">
+            <button class="modal-close-btn" id="close-shipment-form-modal">&times;</button>
+            <h3 id="shipment-modal-title">Add New Shipment</h3>
+            <form class="modal-form" id="shipment-form">
+                <div class="form-group-grid">
+                    <div class="form-group">
+                        <label for="shipment-trackingId">Tracking #</label>
+                        <input type="text" id="shipment-trackingId" placeholder="TRK-XXXXXX" required readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="shipment-customer-unique-id">Customer Unique ID</label>
+                        <input type="text" id="shipment-customer-unique-id" placeholder="e.g., AT-123456" required>
+                        <!-- This hidden input will store the actual UUID for the database -->
+                        <input type="hidden" id="shipment-customer-uuid">
+                        <div class="lookup-status" id="customer-lookup-status"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="shipment-customerName">Customer Name</label>
+                        <input type="text" id="shipment-customerName" placeholder="Auto-filled from ID" required
+                            readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="shipment-customerContact">Customer Contact</label>
+                        <input type="text" id="shipment-customerContact" placeholder="Auto-filled from ID" required
+                            readonly>
+                    </div>
+                </div>
+
+                <div class="form-group-grid">
+                    <div class="form-group">
+                        <label for="shipment-method">Method</label>
+                        <select id="shipment-method" required>
+                            <option value="air">Air Freight</option>
+                            <option value="sea">Sea Freight</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="shipment-weight">Weight (kg)</label>
+                        <input type="number" step="0.1" id="shipment-weight" placeholder="e.g., 15.5">
+                    </div>
+                </div>
+
+                <div class="form-group-grid">
+                    <div class="form-group">
+                        <label for="shipment-shippingCost">Shipping Cost (₵)</label>
+                        <input type="number" step="0.01" id="shipment-shippingCost" placeholder="e.g., 1250.00"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="shipment-current-location">Current Location</label>
+                        <input type="text" id="shipment-current-location" placeholder="e.g., Guangzhou Warehouse"
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-group-grid">
+                    <div class="form-group">
+                        <label for="shipment-eta-days">ETA (Days)</label>
+                        <input type="number" id="shipment-eta-days" placeholder="e.g., 7">
+                    </div>
+                    <div class="form-group">
+                        <label for="shipment-image-url">Image URL (Optional)</label>
+                        <input type="url" id="shipment-image-url" placeholder="https://example.com/package.jpg">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="shipment-description">Shipment Description</label>
+                    <textarea id="shipment-description" rows="3" placeholder="e.g., Box of electronics"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="shipment-deliveryAddress">Delivery Address (Ghana)</label>
+                    <textarea id="shipment-deliveryAddress" rows="3"
+                        placeholder="e.g., 123 Mango St, East Legon, Accra"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="shipment-associated-orders">Associated Order IDs (Comma-separated)</label>
+                    <input type="text" id="shipment-associated-orders" placeholder="e.g., order_uuid_1, order_uuid_2">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save Shipment</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- ADD/EDIT CUSTOMER MODAL -->
+    <div class="modal-overlay" id="customer-form-modal">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="close-customer-form-modal">&times;</button>
+            <h3 id="customer-modal-title">Add New Customer</h3>
+            <form class="modal-form" id="customer-form">
+                <div class="form-group">
+                    <label for="customer-unique-id">Customer Unique ID</label>
+                    <input type="text" id="customer-unique-id" placeholder="CUS-XXXXXX" required>
+                </div>
+                <div class="form-group">
+                    <label for="customer-name">Full Name</label>
+                    <input type="text" id="customer-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="customer-email">Email Address</label>
+                    <input type="email" id="customer-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="customer-phone">Phone Number</label>
+                    <input type="tel" id="customer-phone">
+                </div>
+                <div class="form-group">
+                    <label for="customer-password">Set/Reset Password</label>
+                    <input type="password" id="customer-password" placeholder="Leave blank to keep unchanged">
+                </div>
+                <div class="form-group">
+                    <label for="customer-status">Account Status</label>
+                    <select id="customer-status">
+                        <option value="active">Active</option>
+                        <option value="suspended">Suspended</option>
+                    </select>
+                </div>
+                <!-- !!! CRITICAL FIX: ADD ID to the Save Customer button !!! -->
+                <button type="submit" class="btn btn-primary" id="save-customer-btn">Save Customer</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- VIEW CUSTOMER DETAILS MODAL -->
+    <div class="modal-overlay" id="customer-details-modal">
+        <div class="modal-content large">
+            <button class="modal-close-btn" id="close-customer-details-modal">&times;</button>
+            <div id="customer-details-content">
+                <!-- Customer details and history will be injected here -->
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-overlay" id="shipment-details-modal">
+        <div class="modal-content large">
+            <button class="modal-close-btn" id="close-shipment-details-modal">&times;</button>
+            <div id="shipment-details-content"><!-- Shipment details will be dynamically injected here --></div>
+        </div>
+    </div>
+    <script type="module" src="js/admin.js"></script>
+</body>
+
+</html>

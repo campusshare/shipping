@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <script type="module" src="js/maintenance-check.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - C2G Logistics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth-slider.css">
+</head>
+
+<body class="auth-body">
+
+    <h1 class="auth-header">C2G Logistics</h1>
+
+    <div class="auth-container" id="container">
+
+        <div class="form-container sign-up-container">
+            <form id="signup-form">
+                <h1 class="auth-h1">Create Account</h1>
+                <span class="auth-span">Use your email for registration</span>
+
+                <div class="input-with-icon">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="signup-name" placeholder="Name" required />
+                </div>
+                <div class="input-with-icon">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="signup-email" placeholder="Email" required />
+                </div>
+                <div class="input-with-icon">
+                    <i class="fab fa-whatsapp"></i> <input type="tel" id="signup-phone"
+                        placeholder="WhatsApp Phone (e.g., 024...)" required />
+                </div>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="signup-password" placeholder="Password" required />
+                </div>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="signup-confirm-password" placeholder="Confirm Password" required />
+                </div>
+
+                <button type="submit" id="signup-btn">Sign Up</button>
+                <div id="auth-message-signup" class="auth-message"></div>
+                <a href="#" class="mobile-toggle" id="signInMobile">Already have an account? Sign In</a>
+            </form>
+        </div>
+
+        <div class="form-container sign-in-container">
+            <form id="login-form">
+                <h1 class="auth-h1">Sign in</h1>
+                <span class="auth-span">Use your account</span>
+
+                <div class="input-with-icon">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Email" required />
+                </div>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password" required />
+                </div>
+
+                <div class="form-group math-captcha-group">
+                    <label for="math-answer" id="math-puzzle">What is 5 + 3?</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-calculator"></i>
+                        <input type="text" id="math-answer" placeholder="Your Answer" required>
+                    </div>
+                    <div id="math-error" style="display: none;"></div>
+                </div>
+
+
+                <a href="forgot-password.html" class="auth-a">Forgot your password?</a>
+                <button type="submit" id="login-submit-btn" disabled>Sign In</button>
+                <div id="auth-message-login" class="auth-message"></div>
+                <a href="#" class="mobile-toggle" id="signUpMobile">Don't have an account? Sign Up</a>
+            </form>
+        </div>
+
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1 class="auth-h1">Hello, Friend!</h1>
+                    <p class="auth-p">Enter your personal details and start your journey with us</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1 class="auth-h1">Hello, Friend!</h1>
+                    <p class="auth-p">Enter your personal details and start your journey with us</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/supabase-client.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/toast.js"></script>
+
+    <script src="js/math-captcha.js"></script>
+
+    <script type="module" src="js/login.js"></script>
+    <script type="module" src="js/signup.js"></script>
+    <script type="module" src="js/auth-slider.js"></script>
+</body>
+
+</html>

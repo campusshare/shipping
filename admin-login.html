@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <script type="module" src="js/auth-guard.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - C2G Logistics</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-body">
+    <div class="auth-container">
+        <div class="auth-form-container">
+            <a href="#" class="logo auth-logo">C2G Logistics Admin</a>
+            <h2>Admin Panel Login</h2>
+            <p class="text-muted">Please sign in to manage the platform.</p>
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary auth-btn">Login</button>
+            </form>
+        </div>
+    </div>
+    <script type="module" src="js/supabase-client.js"></script>
+    <script type="module" src="js/admin-login.js"></script>
+</body>
+</html>

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <script type="module" src="js/supabase-client.js"></script>
+    <script type="module" src="js/maintenance-check.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - C2G Logistics</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+
+<body class="dashboard-body">
+
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar" id="dashboard-sidebar">
+            <a href="index.html" class="logo">C2G Logistics</a>
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <div class="sidebar-profile">
+                    <div class="profile-avatar" id="sidebar-profile-avatar">A</div>
+                    <div class="profile-info">
+                        <span class="profile-name" id="sidebar-profile-name">------</span>
+                        <span class="profile-id" id="sidebar-profile-id">ID: SSW-----</span>
+                    </div>
+                </div>
+                <ul>
+                    <li><a href="#dashboard-view" class="active" data-target="dashboard-view"><i
+                                class="icon fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                    <li><a href="#link-orders-view" data-target="link-orders-view"><i class="icon fas fa-link"></i>
+                            <span>Link Orders</span></a></li>
+                    <li><a href="#pay-supplier-view" data-target="pay-supplier-view"><i
+                                class="icon fas fa-money-bill-wave"></i> <span>Pay Supplier</span></a></li>
+                    <li><a href="#my-shipments-view" data-target="my-shipments-view"><i class="icon fas fa-truck"></i>
+                            <span>My Shipments</span></a></li>
+                    <li><a href="#warehouse-address-view" data-target="warehouse-address-view"><i
+                                class="icon fas fa-warehouse"></i> <span>My Warehouse Address</span></a></li>
+                    <li><a href="#settings-view" data-target="settings-view"><i class="icon fas fa-cog"></i>
+                            <span>Settings</span></a></li>
+                    <li><a href="#" id="sidebar-logout-btn"><i class="icon fas fa-sign-out-alt"></i>
+                            <span>Logout</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="dashboard-main">
+            <div class="mobile-dashboard-header">
+                <button class="hamburger" id="mobile-hamburger"><i class="fas fa-bars"></i></button>
+                <span class="mobile-header-title" id="mobile-header-title">Dashboard</span>
+            </div>
+
+            <div id="dashboard-view" class="content-panel active">
+                <header class="dashboard-header" data-aos="fade-up">
+                    <h1>Welcome Back, <span id="welcome-user-name"></span>!</h1>
+                </header>
+                <div class="dashboard-grid" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-card">
+                        <div class="icon"><i class="fas fa-shipping-fast"></i></div>
+                        <div class="value" id="orders-in-transit-count">0</div>
+                        <div class="label">Orders in Transit</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="value" id="ready-for-pickup-count">0</div>
+                        <div class="label">Ready for Pickup</div>
+                    </div>
+                </div>
+                <div class="dash-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3>Quick Actions</h3>
+                    <div class="quick-actions-grid">
+                        <a href="#link-orders-view" class="action-card nav-action-trigger"
+                            data-target="link-orders-view"><i class="fas fa-link"></i><span>Place a New Link
+                                Order</span></a>
+                        <a href="#warehouse-address-view" class="action-card nav-action-trigger"
+                            data-target="warehouse-address-view"><i class="fas fa-box-open"></i><span>Ship Items to My
+                                Address</span></a>
+                        <a href="#pay-supplier-view" class="action-card nav-action-trigger"
+                            data-target="pay-supplier-view"><i class="fas fa-money-bill-wave"></i><span>Pay a
+                                Supplier</span></a>
+                    </div>
+                </div>
+                <div class="dash-card" data-aos="fade-up" data-aos-delay="300">
+                    <h3>Active Shipments Overview</h3>
+                    <div id="active-shipments-list" class="shipment-list">
+                        <div id="shipments-status-message"
+                            style="text-align: center; padding: 30px; color: var(--text-muted); font-style: italic;">
+                            Loading active shipments...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="link-orders-view" class="content-panel">
+                <header class="dashboard-header">
+                    <h1>My Link Orders</h1>
+                </header>
+                <div class="dash-card">
+                    <div class="card-toolbar"><input type="text" placeholder="Search by product or ID..."> <button
+                            id="open-order-modal-btn" class="btn btn-primary"><i class="fas fa-plus"></i> New
+                            Order</button></div>
+                    <div class="data-table" id="link-orders-table">
+                        <div class="table-header">
+                            <div>Order ID</div>
+                            <div class="desktop-col">Product</div>
+                            <div class="desktop-col">Date</div>
+                            <div>Status</div>
+                            <div class="desktop-col text-right">Total</div>
+                            <div style="text-align: right;">Actions</div>
+                        </div>
+                    </div>
+                    <div id="link-orders-status-message"
+                        style="text-align: center; padding: 30px; color: var(--text-muted); font-style: italic; display: none;">
+                        Loading your orders...
+                    </div>
+                </div>
+            </div>
+
+            <div id="my-shipments-view" class="content-panel">
+                <header class="dashboard-header">
+                    <h1>My Shipments</h1>
+                </header>
+                <div class="dash-card">
+                    <div class="card-toolbar">
+                        <input type="text" id="user-shipment-search-input"
+                            placeholder="Search by Tracking # or Description...">
+                        <select id="user-shipment-status-filter">
+                            <option value="all">All Statuses</option>
+                            <option value="in-transit">In Transit</option>
+                            <option value="clearing_customs">Clearing Customs</option>
+                            <option value="ready_for_pickup">Ready for Pickup</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="pending">Pending</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="data-table" id="my-shipments-table">
+                        <div class="table-header">
+                            <div>Tracking #</div>
+                            <div class="desktop-col">Description</div>
+                            <div class="desktop-col">Method</div>
+                            <div>Status</div>
+                            <div class="desktop-col text-right">Weight</div>
+                            <div>Details</div>
+                        </div>
+                    </div>
+                    <div id="my-shipments-status-message"
+                        style="text-align: center; padding: 30px; color: var(--text-muted); font-style: italic; display: none;">
+                        Loading your shipments...
+                    </div>
+                </div>
+            </div>
+
+            <div id="warehouse-address-view" class="content-panel">
+                <header class="dashboard-header">
+                    <h1>My China Warehouse Address</h1>
+                </header>
+
+                <div class="dash-card" data-aos="fade-up">
+                    <p class="text-muted" style="margin-bottom: 20px;">Use this unique address as your 'shipping
+                        address' when checking out from any online store or give it to your supplier. When packages
+                        arrive here under your name and ID, we'll notify you to arrange shipment to Ghana.</p>
+                    <div class="address-card">
+                        <div id="user-warehouse-address">
+                            <p><strong>Name:</strong> <span id="warehouse-name">...</span></p>
+                            <p><strong>Address Line 1:</strong>太原理工大学(迎西校区)清泽田径场, 迎泽西大街79号</p>
+                            <p><strong>City:</strong>太原市</p>
+                            <p><strong>Province:</strong>山西省</p>
+                            <p><strong>District:</strong>万柏林区</p>
+                            <p><strong>Postal Code:</strong> 030024</p>
+                            <p><strong>Country:</strong> China</p>
+                            <p><strong>Phone:</strong> <span id="warehouse-phone">+86 178 3511 2914</span></p>
+                        </div>
+                        <button id="copy-address-btn" class="btn btn-primary"><i class="fas fa-copy"></i> Copy
+                            Address</button>
+                    </div>
+                    <div class="important-notes">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Important</h4>
+                        <p>Always include your full name and unique ID <strong><span
+                                    id="important-user-id">[...]</span></strong> in the name or address field to ensure
+                            your packages are assigned to your account correctly.</p>
+                    </div>
+                </div>
+
+                <div class="dash-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3><i class="fas fa-edit" style="color: var(--primary-blue);"></i> Register Incoming Package</h3>
+                    <p class="text-muted" style="margin-bottom: 20px;">Once your supplier ships your item to our China
+                        warehouse, add the tracking number here so we know it's coming.</p>
+                    <form class="settings-form" id="register-package-form">
+                        <div class="form-group-grid">
+                            <div class="form-group">
+                                <label for="reg-tracking-number">Chinese Tracking Number <span
+                                        class="required">*</span></label>
+                                <input type="text" id="reg-tracking-number"
+                                    placeholder="Enter the tracking number from your supplier" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-store-name">Store / Supplier Name <span
+                                        class="required">*</span></label>
+                                <input type="text" id="reg-store-name" placeholder="e.g., Taobao, 1688, etc." required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-description">Item Description <span class="required">*</span></label>
+                            <textarea id="reg-description" rows="3" placeholder="e.g., 5 red t-shirts, 2 pairs of shoes"
+                                required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="register-package-btn">Register
+                            Package</button>
+                        <div id="register-package-message" class="auth-message"
+                            style="display: none; margin-top: 15px;"></div>
+                    </form>
+                </div>
+
+                <div class="dash-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3>My Incoming Packages</h3>
+                    <div class="data-table" id="incoming-packages-table">
+                        <div class="table-header">
+                            <div>Tracking #</div>
+                            <div class="desktop-col">Description</div>
+                            <div class="desktop-col">Date Registered</div>
+                            <div>Status</div>
+                        </div>
+                    </div>
+                    <div id="incoming-packages-status-message"
+                        style="text-align: center; padding: 30px; color: var(--text-muted); font-style: italic; display: none;">
+                        Loading your packages...
+                    </div>
+                </div>
+            </div>
+
+            <div id="pay-supplier-view" class="content-panel">
+                <header class="dashboard-header">
+                    <h1>Pay a Supplier</h1>
+                </header>
+                <div class="calculator-main-grid">
+                    <div class="calculator-card" data-aos="fade-up">
+                        <h3>Payment Calculator</h3>
+                        <p class="text-muted" style="text-align: center; margin-top: -15px; margin-bottom: 20px;">Pay
+                            your suppliers in China instantly.</p>
+                        <form id="payment-calculator-form">
+                            <div class="form-group">
+                                <label for="cny-amount">Amount to Send (¥ CNY)</label>
+                                <input type="number" id="cny-amount" name="cny_amount" placeholder="e.g., 3200"
+                                    step="any" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="current-rate">Your Rate (₵ per ¥)</label>
+                                <input type="text" id="current-rate" name="current_rate" value="Calculating..." readonly
+                                    disabled style="text-align: center; font-size: 1.1rem;">
+                            </div>
+                            <div class="calculator-result">
+                                <span class="result-label">You Pay in Cedis</span>
+                                <span class="result-amount" id="ghs-total">₵0.00</span>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="pay-supplier-btn" disabled>
+                                <i class="fab fa-whatsapp"></i> Initiate Payment
+                            </button>
+                        </form>
+                    </div>
+                    <div class="pricing-guide-card" data-aos="fade-up" data-aos-delay="100">
+                        <h3>💰 Payment Pricing Guide</h3>
+                        <p class="pricing-subtitle">Our rates are tiered to give you better value on larger transfers.
+                            Rates are valid for today.</p>
+                        <ul class="pricing-list" id="pricing-list-container">
+                        </ul>
+                        <div class="pricing-notes">
+                            <h4><i class="fas fa-info-circle"></i> How it Works</h4>
+                            <p>1. Enter the CNY amount your supplier needs in the calculator.</p>
+                            <p>2. The calculator automatically shows the correct rate and the total GHS you need to pay.
+                            </p>
+                            <p>3. Click "Initiate Payment" to start a WhatsApp chat with us to complete the secure
+                                transfer.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="settings-view" class="content-panel">
+                <header class="dashboard-header">
+                    <h1>Account Settings</h1>
+                </header>
+                <div class="dash-card" data-aos="fade-up">
+                    <h3>Profile Information</h3>
+                    <form class="settings-form" id="profile-settings-form">
+                        <div class="form-group-grid">
+                            <div class="form-group"><label for="setting-name">Full Name</label><input type="text"
+                                    id="setting-name" value="Ama Tetteh"></div>
+                            <div class="form-group"><label for="setting-email">Email Address</label><input type="email"
+                                    id="setting-email" value="ama.tetteh@example.com" disabled></div>
+                            <div class="form-group"><label for="setting-phone">WhatsApp Phone Number</label><input
+                                    type="tel" id="setting-phone" value="024 123 4567"><small
+                                    class="form-helper-text">Used for important delivery notifications.</small></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="save-profile-btn">Save Changes</button>
+                    </form>
+                </div>
+                <div class="dash-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3>Change Password</h3>
+                    <form classs="settings-form" id="password-settings-form">
+                        <div class="form-group"><label for="current-password">Current Password</label><input
+                                type="password" id="current-password" placeholder="••••••••"></div>
+                        <div class="form-group"><label for="new-password">New Password</label><input type="password"
+                                id="new-password" placeholder="••••••••"></div>
+                        <div class="form-group"><label for="confirm-password">Confirm New Password</label><input
+                                type="password" id="confirm-password" placeholder="••••••••"></div>
+                        <button type="submit" class="btn btn-primary" id="update-password-btn">Update Password</button>
+                    </form>
+                </div>
+                <div class="dash-card danger-zone" data-aos="fade-up" data-aos-delay="200">
+                    <h3>Danger Zone</h3>
+                    <div class="danger-zone-content">
+                        <p>Deleting your account is a permanent action and cannot be undone.</p>
+                        <button type="button" class="btn btn-danger" id="delete-account-btn">Delete My Account</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="order-modal-overlay">
+        <div class="modal-content large-modal">
+            <button class="modal-close-btn" id="order-modal-close">&times;</button>
+            <h3>Place a New Link Order</h3>
+            <p class="text-muted">Found a product on a Chinese site? We'll buy it and ship it to you.</p>
+
+            <form id="new-link-order-form" class="modal-form">
+                <div class="form-group">
+                    <label for="order-product-link">Product Link (From 1688, Taobao, etc.)</label>
+                    <input type="url" id="order-product-link" placeholder="https://detail.1688.com/..." required>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="order-cny-price">Item Price (in Chinese Yuan ¥)</label>
+                        <input type="number" id="order-cny-price" placeholder="e.g., 50" min="0" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="order-quantity">Quantity</label>
+                        <input type="number" id="order-quantity" value="1" min="1" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="order-shipping-mode">Shipping Mode <span class="required">*</span></label>
+                    <select id="order-shipping-mode" required>
+                        <option value="">-- Select Shipping Mode --</option>
+                        <option value="air_express">Air Express - 3 Days (₵450/kg)</option>
+                        <option value="air_normal">Air Normal - 12 Days ($16/kg)</option>
+                        <option value="sea">Sea Freight - 35-40 Days ($250/CBM)</option>
+                    </select>
+                </div>
+
+                <div class="shipping-info-card">
+                    <h4><i class="fas fa-info-circle"></i> Shipping Mode Information</h4>
+                    <div class="shipping-modes-grid">
+                        <div class="mode-card">
+                            <div class="mode-icon air-express"><i class="fas fa-plane-departure"></i></div>
+                            <h5>Air Express</h5>
+                            <p class="mode-duration">⏱️ 3 Days</p>
+                            <p class="mode-rate">₵450 per kg</p>
+                            <p class="mode-desc">Fastest delivery option</p>
+                        </div>
+                        <div class="mode-card">
+                            <div class="mode-icon air-normal"><i class="fas fa-plane"></i></div>
+                            <h5>Air Normal</h5>
+                            <p class="mode-duration">⏱️ 12 Days</p>
+                            <p class="mode-rate">$16 per kg</p>
+                            <p class="mode-desc">Balanced speed & cost</p>
+                        </div>
+                        <div class="mode-card">
+                            <div class="mode-icon sea"><i class="fas fa-ship"></i></div>
+                            <h5>Sea Freight</h5>
+                            <p class="mode-duration">⏱️ 35-40 Days</p>
+                            <p class="mode-rate">$250 per CBM</p>
+                            <p class="mode-desc">Most economical</p>
+                        </div>
+                    </div>
+                    <p class="shipping-note"><strong>Note:</strong> Your exact shipping fee will be communicated to you
+                        via WhatsApp after your item has been purchased and is ready to ship. The rates above are
+                        estimates.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="order-notes">Notes (Size, Color, Voltage, etc.)</label>
+                    <textarea id="order-notes" rows="3"
+                        placeholder="Please be as specific as possible. e.g., Color: Red, Size: XL, Plug Type: UK"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="order-screenshot-upload">Upload Screenshot<span style="color: red;">
+                            MANDATORY</span></label>
+                    <div class="screenshot-upload-section">
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="order-screenshot-upload" class="file-input" accept="image/*">
+                            <label for="order-screenshot-upload" class="file-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Click to browse or drag & drop</span>
+                            </label>
+                        </div>
+                        <div class="screenshot-preview-container">
+                            <img id="screenshot-preview" class="screenshot-preview" alt="Screenshot preview"
+                                style="display: none;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dash-card live-summary-card">
+                    <h3>Live Cost Summary</h3>
+                    <div class="exchange-rate-display">
+                        Using Live Rate: 1 CNY = <span id="modal-exchange-rate">...</span> GHS
+                    </div>
+                    <div class="cost-breakdown">
+                        <div class="summary-row"><span>Item Cost (GHS)</span><span id="modal-subtotal-ghs">₵0.00</span>
+                        </div>
+                        <div class="summary-row"><span>Service Fee</span><span id="modal-service-fee-ghs">₵0.00</span>
+                        </div>
+                    </div>
+                    <div class="summary-row total"><span>Total Estimated Cost (Excl. Shipping)</span><span
+                            id="modal-total-ghs">₵0.00</span></div>
+                    <p class="summary-note"><i class="fas fa-info-circle"></i> <strong>Shipping fees will be
+                            communicated to you directly via WhatsApp after purchase.</strong></p>
+                </div>
+
+                <button type="submit" class="btn btn-primary checkout-btn" id="order-modal-submit-btn">Proceed to
+                    Payment</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="modal-overlay" id="order-details-modal-overlay">
+        <div class="modal-content medium-modal">
+            <button class="modal-close-btn" id="order-details-modal-close">&times;</button>
+            <h3 id="order-details-modal-title">Order Details: #LO-XXXX</h3>
+            <div class="order-details-content">
+                <div class="detail-row">
+                    <span>Order ID:</span><span id="detail-order-id"></span>
+                </div>
+                <div class="detail-row">
+                    <span>Date Placed:</span><span id="detail-date-placed"></span>
+                </div>
+                <div class="detail-row">
+                    <span>Product Link:</span><a href="#" id="detail-product-link" target="_blank">View Product</a>
+                </div>
+                <div class="detail-row">
+                    <span>Item Price (CNY):</span><span id="detail-cny-price"></span>
+                </div>
+                <div class="detail-row">
+                    <span>Quantity:</span><span id="detail-quantity"></span>
+                </div>
+                <div class="detail-row">
+                    <span>Shipping Mode:</span><span id="detail-shipping-mode"></span>
+                </div>
+                <div class="detail-row full-width">
+                    <span>Notes:</span><span id="detail-notes"></span>
+                </div>
+                <div class="detail-row full-width">
+                    <span>Screenshot:</span>
+                    <div id="detail-screenshot-container">
+                        <a href="#" id="detail-screenshot-link" target="_blank" style="display: none;">View
+                            Screenshot</a>
+                        <span id="detail-screenshot-none" style="display: none;">No Screenshot</span>
+                    </div>
+                </div>
+                <div classs="detail-row">
+                    <span>Total Cost (GHS):</span><span id="detail-total-cost"></span>
+                </div>
+                <div class="detail-row">
+                    <span>Order Status:</span><span id="detail-order-status"></span>
+                </div>
+                <div class="detail-row">
+                    <span>Payment Status:</span><span id="detail-payment-status"></span>
+                </div>
+            </div>
+            <div class="order-details-actions" style="margin-top: 30px; text-align: center;">
+                <button class="btn btn-primary" id="order-details-track-btn" style="margin-right: 10px;">Track
+                    Shipment</button>
+                <button class="btn btn-secondary" id="order-details-contact-btn">Contact Support</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="shipment-details-modal-overlay">
+        <div class="modal-content large-modal">
+            <button class="modal-close-btn" id="shipment-details-modal-close-btn">&times;</button>
+            <h3 id="shipment-details-modal-title">Shipment Details: #TR-XXXX</h3>
+            <div class="order-details-content">
+                <div class="detail-row">
+                    <span>Tracking #:</span><span id="shipment-detail-tracking-num"></span>
+                </div>
+                <div class="detail-row">
+                    <span>Status:</span><span id="shipment-detail-status"></span>
+                </div>
+                <div class="detail-row">
+                    <span>Current Location:</span><span id="shipment-detail-location"></span>
+                </div>
+                <div class="detail-row">
+                    <span>ETA:</span><span id="shipment-detail-eta"></span>
+                </div>
+                <div class="detail-row">
+                    <span>Method:</span><span id="shipment-detail-method"></span>
+                </div>
+                <div class="detail-row">
+                    <span>Total Weight (kg):</span><span id="shipment-detail-weight"></span>
+                </div>
+                <div class="detail-row full-width">
+                    <span>Items Description:</span><span id="shipment-detail-description"></span>
+                </div>
+                <div class="detail-row full-width">
+                    <span>Associated Orders:</span><span id="shipment-detail-orders"></span>
+                </div>
+                <div class="detail-row full-width">
+                    <span>Package Image:</span>
+                    <div id="shipment-detail-image-container">
+                        <a href="#" id="shipment-detail-image-link" target="_blank" style="display: none;">View
+                            Image</a>
+                        <span id="shipment-detail-image-none" style="display: none;">No Image Provided</span>
+                    </div>
+                </div>
+            </div>
+            <div class="order-details-actions" style="margin-top: 30px; text-align: center;">
+                <button class="btn btn-secondary" id="shipment-details-contact-btn">Contact Support</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script type="module" src="js/supabase-client.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/auth-guard.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/dashboard.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <title>Payment Confirmation - C2G Logistics</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-body">
+    <div class="auth-container">
+        <div class="auth-form-container" style="text-align: center;">
+            <a href="index.html" class="logo auth-logo">C2G Logistics</a>
+            <h2 id="status-heading">Processing Your Payment...</h2>
+            <p id="status-message" class="text-muted">Please wait while we confirm your transaction. Do not close this page.</p>
+            <div id="status-icon" style="font-size: 4rem; margin: 2rem 0;">
+                <!-- Icon will be inserted here by JavaScript -->
+            </div>
+            <a href="dashboard.html#link-orders-view" class="btn btn-primary" style="display: none;" id="return-btn">Return to Dashboard</a>
+        </div>
+    </div>
+    <script type="module" src="js/payment-status.js"></script>
+</body>
+</html>

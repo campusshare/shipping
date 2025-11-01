@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <script type="module" src="js/maintenance-check.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - C2G Logistics | Your Gateway to China, Delivered to Ghana</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">C2G Logistics</a>
+                <div class="nav-links" id="desktop-nav-links">
+                    <a href="index.html#services">Services</a>
+                    <a href="index.html#buy-for-me">Buy For Me</a>
+                    <a href="index.html#process">How It Works</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html" class="active">Contact</a>
+                </div>
+                <div class="nav-links" id="desktop-nav-right">
+                    <a href="login.html" class="btn btn-secondary logged-out-view">Login</a>
+                    <a href="signup.html" class="btn btn-primary logged-out-view">Sign Up</a>
+                    <a href="dashboard.html" class="btn btn-primary logged-in-view">My Dashboard</a>
+                </div>
+                <button class="mobile-menu-toggle" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <div class="mobile-menu-top">
+                <h3>Menu</h3>
+                <button class="close-icon" id="close-icon">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="mobile-nav-links-wrapper">
+                <a href="index.html#services">Services</a>
+                <a href="index.html#buy-for-me">Buy For Me</a>
+                <a href="pay-supplier.html">Pay Supplier</a>
+                <a href="index.html#process">How It Works</a>
+                <a href="about.html">About</a>
+                <a href="contact.html" class="active">Contact</a>
+            </div>
+
+            <div class="mobile-auth-wrapper">
+                <div class="logged-out-view">
+                    <a href="login.html" class="btn btn-secondary">Login</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu-overlay"></div>
+    </header>
+
+    <!-- Contact Hero Section -->
+    <section class="contact-hero">
+        <div class="container">
+            <div class="contact-hero-content fade-in">
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a> / Contact Us
+                </div>
+                <h1 class="animate-pulse">Let's Connect</h1>
+                <p class="contact-hero-subtitle">We're here to help you every step of the way. Get in touch with our
+                    friendly team for any questions about our services.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Main Section -->
+    <section class="contact-main-section">
+        <div class="container">
+            <div class="contact-main-grid">
+                <!-- Contact Info Blocks -->
+                <div class="contact-info-blocks">
+                    <div class="contact-block fade-in">
+                        <h4>Chat to us</h4>
+                        <p>Our friendly team is here to help</p>
+                        <a href="mailto:C2glogisticsgh@gmail.com">C2glogisticsgh@gmail.com</a>
+                    </div>
+                    <div class="contact-block fade-in" style="animation-delay: 0.2s;">
+                        <h4>Call us</h4>
+                        <p>Toll-free call</p>
+                        <a href="tel:+233241465282">+233 24 146 5282</a>
+                    </div>
+                    <div class="contact-block fade-in" style="animation-delay: 0.4s;">
+                        <h4>Visit us</h4>
+                        <p>Come say hello at our office</p>
+                        <a href="https://www.google.com/maps" target="_blank">Accra, Ghana</a>
+                    </div>
+                    <div class="contact-block fade-in" style="animation-delay: 0.6s;">
+                        <h4>Hours</h4>
+                        <p>Monday-Friday 9am-5pm</p>
+                        <p style="margin: 0; font-size: 0.9rem; opacity: 0.8;">Weekend support available</p>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form-card scale-in">
+                    <h3>Send us a message</h3>
+                    <form id="contact-form" action="https://formsubmit.co/c2glogisticsgh@gmail.com" method="POST">
+                        <div class="form-grid-two-cols">
+                            <div class="form-group">
+                                <label for="contact-first-name">First Name</label>
+                                <input type="text" id="contact-first-name" name="first_name" placeholder="John"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-last-name">Last Name</label>
+                                <input type="text" id="contact-last-name" name="last_name" placeholder="Doe" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">Email</label>
+                            <input type="email" id="contact-email" name="email" placeholder="john.doe@example.com"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-subject">Subject</label>
+                            <input type="text" id="contact-subject" name="subject" placeholder="Question about my order"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Your message</label>
+                            <textarea id="contact-message" name="message" rows="6"
+                                placeholder="Type your message here..."></textarea>
+                        </div>
+                        <!-- Hidden fields for FormSubmit.co -->
+                        <input type="hidden" name="_subject" value="New Contact Message from C2G Logistics!">
+                        <input type="hidden" name="_next" value="https://yourdomain.com/contact.html?success=true">
+
+                        <button type="submit" class="btn btn-primary">Send message</button>
+                        <div id="contact-message-status" class="auth-message" style="display: none;"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lower CTA Section -->
+    <section class="contact-lower-cta-section">
+        <div class="container">
+            <div class="lower-cta-card fade-in">
+                <h3>Need Immediate Assistance?</h3>
+                <p>For urgent inquiries or direct support, contact us immediately through any of these channels.</p>
+                <div class="phone-number">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+233 24 146 5282</span>
+                </div>
+                <div class="email-address">
+                    <i class="fas fa-envelope"></i>
+                    <span>C2glogisticsgh@gmail.com</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/233241465282" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>C2G Logistics</h3>
+                    <p>The smartest way to buy and ship from China to Ghana. We handle procurement and logistics so you
+                        can focus on what matters.</p>
+                    <div class="social-links">
+                        <a href="#" class="animate-bounce"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="animate-bounce" style="animation-delay: 0.2s;"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="#" class="animate-bounce" style="animation-delay: 0.4s;"><i
+                                class="fab fa-twitter"></i></a>
+                        <a href="#" class="animate-bounce" style="animation-delay: 0.6s;"><i
+                                class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="index.html#services">Services</a></li>
+                        <li><a href="index.html#process">How It Works</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="signup.html">Sign Up</a></li>
+                        <li><a href="login.html">Track Package</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><i class="fas fa-phone-alt" style="margin-right: 8px; color: var(--primary-blue);"></i> +233
+                            24 146 5282</li>
+                        <li><i class="fas fa-envelope"
+                                style="margin-right: 8px; color: var(--primary-blue);"></i>C2glogisticsgh@gmail.com</li>
+                        <li><i class="fas fa-map-marker-alt" style="margin-right: 8px; color: var(--primary-blue);"></i>
+                            Accra, Ghana</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 C2G Logistics. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script type="module" src="js/supabase-client.js"></script>
+    <script type="module" src="js/auth-guard.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/auth.js"></script>
+</body>
+
+</html>

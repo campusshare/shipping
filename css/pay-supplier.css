@@ -1,0 +1,513 @@
+/* css/pay-supplier.css */
+
+.calculator-main-section {
+    padding: 80px 0;
+    background-color: var(--bg-light);
+}
+
+.calculator-main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* Calculator Card Styles */
+.calculator-card {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+    position: sticky;
+    /* Makes it "stick" while scrolling past the guide */
+    top: 120px;
+    /* 100px header + 20px breathing room */
+}
+
+.calculator-card h3 {
+    font-size: 2rem;
+    color: var(--primary-dark);
+    margin-bottom: 25px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.calculator-card .form-group {
+    margin-bottom: 20px;
+}
+
+.calculator-card label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.calculator-card input[type="number"],
+.calculator-card input[type="text"] {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.calculator-card input[type="number"]:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 82, 255, 0.15);
+    outline: none;
+}
+
+.calculator-card input[type="text"][disabled] {
+    background-color: var(--bg-light);
+    color: var(--text-muted);
+    font-weight: 500;
+    text-align: center;
+}
+
+.calculator-result {
+    background: var(--primary-blue);
+    color: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 25px;
+    text-align: center;
+}
+
+.calculator-result .result-label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+
+.calculator-result .result-amount {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.calculator-card .btn-primary {
+    width: 100%;
+    margin-top: 25px;
+    padding: 16px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.calculator-card .btn-primary i {
+    font-size: 1.3rem;
+}
+
+/* Pricing Guide Card Styles */
+.pricing-guide-card {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+.pricing-guide-card h3 {
+    font-size: 1.8rem;
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.pricing-guide-card .pricing-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+}
+
+.pricing-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.pricing-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.pricing-list li:last-child {
+    border-bottom: none;
+}
+
+.pricing-list li:nth-child(even) {
+    background-color: var(--bg-light);
+}
+
+.pricing-list li span {
+    font-size: 1.1rem;
+    color: var(--text-body);
+}
+
+.pricing-list li strong {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    background-color: #e6f0ff;
+    padding: 5px 10px;
+    border-radius: 6px;
+}
+
+.pricing-notes {
+    margin-top: 25px;
+    background: #fffbe6;
+    border: 1px solid #ffe58f;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.pricing-notes h4 {
+    color: #d46b08;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pricing-notes p {
+    font-size: 0.95rem;
+    color: var(--text-body);
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.pricing-notes p:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .calculator-main-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .calculator-card {
+        order: -1;
+        /* Put calculator on top on mobile */
+        position: static;
+        /* Unstick it */
+    }
+}
+
+@media (max-width: 768px) {
+    .calculator-main-section {
+        padding: 40px 0;
+    }
+
+    .calculator-card,
+    .pricing-guide-card {
+        padding: 25px;
+    }
+
+    .calculator-card h3 {
+        font-size: 1.8rem;
+    }
+
+    .calculator-result .result-amount {
+        font-size: 2rem;
+    }
+
+    .pricing-guide-card h3 {
+        font-size: 1.5rem;
+    }
+
+    .pricing-list li {
+        padding: 15px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .pricing-list li strong {
+        align-self: flex-end;
+    }
+}
+
+/* css/pay-supplier.css */
+
+.calculator-main-section {
+    padding: 80px 0;
+    background-color: var(--bg-light);
+}
+
+.calculator-main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* Calculator Card Styles */
+.calculator-card {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+    position: sticky;
+    /* Makes it "stick" while scrolling past the guide */
+    top: 120px;
+    /* 100px header (80px + 1rem padding) + 20px breathing room */
+}
+
+.calculator-card h3 {
+    font-size: 2rem;
+    color: var(--primary-dark);
+    margin-bottom: 25px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.calculator-card .form-group {
+    margin-bottom: 20px;
+}
+
+.calculator-card label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.calculator-card input[type="number"],
+.calculator-card input[type="text"] {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.calculator-card input[type="number"]:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 82, 255, 0.15);
+    outline: none;
+}
+
+.calculator-card input[type="text"][disabled] {
+    background-color: var(--bg-light);
+    color: var(--text-muted);
+    font-weight: 500;
+    text-align: center;
+}
+
+.calculator-result {
+    background: var(--primary-blue);
+    color: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 25px;
+    text-align: center;
+}
+
+.calculator-result .result-label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+
+.calculator-result .result-amount {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.calculator-card .btn-primary {
+    width: 100%;
+    margin-top: 25px;
+    padding: 16px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.calculator-card .btn-primary:disabled {
+    background-color: var(--text-muted);
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+
+.calculator-card .btn-primary i {
+    font-size: 1.3rem;
+}
+
+/* Pricing Guide Card Styles */
+.pricing-guide-card {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+.pricing-guide-card h3 {
+    font-size: 1.8rem;
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.pricing-guide-card .pricing-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+}
+
+.pricing-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.pricing-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.3s ease;
+}
+
+.pricing-list li.active-rate {
+    background-color: #e6f0ff;
+    /* Light blue background for active rate */
+}
+
+.pricing-list li:last-child {
+    border-bottom: none;
+}
+
+.pricing-list li:nth-child(even):not(.active-rate) {
+    background-color: var(--bg-light);
+}
+
+.pricing-list li span {
+    font-size: 1.1rem;
+    color: var(--text-body);
+}
+
+.pricing-list li strong {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    background-color: var(--white);
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.pricing-list li.active-rate strong {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    border-color: var(--primary-blue);
+}
+
+.pricing-notes {
+    margin-top: 25px;
+    background: #fffbe6;
+    border: 1px solid #ffe58f;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.pricing-notes h4 {
+    color: #d46b08;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pricing-notes p {
+    font-size: 0.95rem;
+    color: var(--text-body);
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.pricing-notes p:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .calculator-main-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .calculator-card {
+        order: -1;
+        /* Put calculator on top on mobile */
+        position: static;
+        /* Unstick it */
+    }
+}
+
+@media (max-width: 768px) {
+    .calculator-main-section {
+        padding: 40px 0;
+    }
+
+    .calculator-card,
+    .pricing-guide-card {
+        padding: 25px;
+    }
+
+    .calculator-card h3 {
+        font-size: 1.8rem;
+    }
+
+    .calculator-result .result-amount {
+        font-size: 2rem;
+    }
+
+    .pricing-guide-card h3 {
+        font-size: 1.5rem;
+    }
+
+    .pricing-list li {
+        padding: 15px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .pricing-list li strong {
+        align-self: flex-end;
+    }
+}
