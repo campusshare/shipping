@@ -37,7 +37,6 @@
 </head>
 
 <body>
-    <!-- Header -->
     <header class="header">
         <div class="container">
             <nav class="nav">
@@ -45,6 +44,7 @@
                 <div class="nav-links" id="desktop-nav-links">
                     <a href="#services">Services</a>
                     <a href="#buy-for-me">Buy For Me</a>
+                    <a href="dashboard.html#pay-supplier-view">Pay Supplier</a>
                     <a href="#process">How It Works</a>
                     <a href="about.html">About</a>
                     <a href="contact.html">Contact</a>
@@ -59,40 +59,24 @@
                 </button>
             </nav>
         </div>
-
-        <!-- Mobile Menu -->
-        <div class="mobile-menu" id="mobile-menu">
-            <div class="mobile-menu-top">
-                <h3>Menu</h3>
-                <button class="close-icon" id="close-icon">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-
-            <div class="mobile-nav-links-wrapper">
-                <a href="#services">Services</a>
-                <a href="#buy-for-me">Buy For Me</a>
-                <a href="pay-supplier.html">Pay Supplier</a>
-                <a href="#process">How It Works</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-
-
-                <div class="logged-out-view">
-                    <a href="login.html" class="btn btn-secondary">Login</a>
-                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
-                </div>
-
-            </div>
-
-
+    </header> <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-top">
+            <h3>Menu</h3>
+            <button class="close-icon" id="close-icon">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
 
-        <!-- Mobile Menu Overlay -->
-        <div class="mobile-menu-overlay"></div>
-    </header>
+        <div class="mobile-nav-links-wrapper">
+            </div>
 
-    <!-- Hero Section -->
+        <div class="mobile-auth-wrapper">
+            </div>
+    </div>
+
+    <div class="mobile-menu-overlay"></div>
+
+
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -109,7 +93,6 @@
         </div>
     </section>
 
-    <!-- Trusted Partners -->
     <section class="trusted-partners">
         <div class="container">
             <div class="partners-content">
@@ -132,7 +115,6 @@
         </div>
     </section>
 
-    <!-- Services Section -->
     <section class="services" id="services">
         <div class="container">
             <div class="section-header fade-in">
@@ -171,7 +153,6 @@
         </div>
     </section>
 
-    <!-- Buy For Me Section -->
     <section class="buy-for-me" id="buy-for-me">
         <div class="container">
             <div class="section-header fade-in">
@@ -180,7 +161,6 @@
                     share the product link and we'll handle everything from purchase to delivery.</p>
             </div>
 
-            <!-- How it works -->
             <div class="buy-for-me-process">
                 <div class="process-header fade-in">
                     <h3>How Our Buy For Me Service Works</h3>
@@ -222,7 +202,6 @@
                 </div>
             </div>
 
-            <!-- Supported Platforms -->
             <div class="supported-platforms fade-in">
                 <h3>Supported Shopping Platforms</h3>
                 <p>We can purchase from all major Chinese e-commerce platforms:</p>
@@ -285,14 +264,8 @@
                 </div>
             </div>
         </div>
-        </div>
-        </div>
-        </div>
-        </div>
-        </div>
     </section>
 
-    <!-- Process Section -->
     <section class="process" id="process">
         <div class="container">
             <div class="section-header fade-in">
@@ -328,7 +301,6 @@
         </div>
     </section>
 
-    <!-- Stats Section -->
     <section class="stats" id="about">
         <div class="container">
             <div class="stats-content">
@@ -341,29 +313,28 @@
                     <div class="stat-item fade-in">
                         <i class="fas fa-users stat-icon animate-bounce"></i>
                         <span class="stat-number">450+</span>
-                        <p class="stat-label">Happy Customers</p>
+                        <span class="stat-label">Happy Customers</span>
                     </div>
                     <div class="stat-item fade-in" style="animation-delay: 0.2s;">
                         <i class="fas fa-box stat-icon animate-bounce" style="animation-delay: 0.5s;"></i>
                         <span class="stat-number">2,000+</span>
-                        <p class="stat-label">Completed Orders</p>
+                        <span class="stat-label">Completed Orders</span>
                     </div>
                     <div class="stat-item fade-in" style="animation-delay: 0.4s;">
                         <i class="fas fa-truck stat-icon animate-bounce" style="animation-delay: 1s;"></i>
                         <span class="stat-number">99.8%</span>
-                        <p class="stat-label">Delivery Success Rate</p>
+                        <span class="stat-label">Delivery Success Rate</span>
                     </div>
                     <div class="stat-item fade-in" style="animation-delay: 0.6s;">
                         <i class="fas fa-headset stat-icon animate-bounce" style="animation-delay: 1.5s;"></i>
                         <span class="stat-number">24/7</span>
-                        <p class="stat-label">Customer Support</p>
+                        <span class="stat-label">Customer Support</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
     <section class="services" style="background: white;">
         <div class="container">
             <div class="section-header fade-in">
@@ -420,10 +391,8 @@
                     <a href="signup.html" class="learn-more" style="margin-top: 2rem; display: inline-flex;">Get My
                         Address <i class="fas fa-arrow-right"></i></a>
                 </div>
-                <!-- Warehouse Address Visual -->
                 <div class="warehouse-visual-container">
                     <div class="warehouse-scene">
-                        <!-- Central warehouse -->
                         <div class="warehouse-center">
                             <i class="fas fa-warehouse warehouse-icon"></i>
                             <div class="address-sign">
@@ -434,7 +403,6 @@
                             </div>
                         </div>
 
-                        <!-- Surrounding elements -->
                         <div class="floating-element package-1">
                             <i class="fas fa-box"></i>
                         </div>
@@ -454,10 +422,8 @@
                 </div>
             </div>
         </div>
-        </div>
     </section>
 
-    <!-- CTA Section -->
     <section class="cta" id="contact">
         <div class="container">
             <div class="cta-content">
@@ -469,7 +435,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
@@ -517,11 +482,10 @@
         </div>
     </footer>
 
-
     <script type="module" src="js/supabase-client.js"></script>
     <script type="module" src="js/auth-guard.js"></script>
     <script type="module" src="js/main.js"></script>
-    <script type="module" src="js/auth.js"></script>
+    <script type.module" src="js/auth.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 </body>
 
