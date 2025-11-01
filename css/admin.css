@@ -873,15 +873,21 @@ body.sidebar-open .mobile-overlay {
         color: var(--primary-dark);
     }
 
+    /* --- Sidebar --- */
     .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        transform: translateX(-100%);
-        z-index: 1100;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        width: 250px;
+        background-color: var(--white);
+        border-right: 1px solid var(--border-color);
+        padding: 25px;
         transition: transform 0.3s ease-in-out;
+        z-index: 1100;
+        flex-shrink: 0;
+        /* --- FIX: Make sidebar sticky --- */
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+        /* Allows sidebar to scroll if it has too many items */
     }
 
     body.sidebar-open .sidebar {

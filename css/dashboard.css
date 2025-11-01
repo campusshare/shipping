@@ -1196,6 +1196,7 @@ marquee .partner-logos {
 }
 
 /* --- Sidebar --- */
+/* --- Sidebar --- */
 .sidebar {
     width: 280px;
     /* Slightly wider sidebar */
@@ -1204,6 +1205,13 @@ marquee .partner-logos {
     padding: 30px;
     flex-shrink: 0;
     transition: transform 0.3s ease-in-out;
+    z-index: 1100;
+    /* --- FIX: Make sidebar sticky --- */
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    /* Allows sidebar to scroll if it has too many items */
 }
 
 .sidebar .logo {
@@ -3148,4 +3156,42 @@ select option:hover {
     .data-table .table-actions {
         justify-content: flex-end;
     }
+}
+
+.settings-form .form-group input,
+.settings-form .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    background: var(--white);
+    color: var(--text-dark);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.settings-form .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.settings-form .form-group input:focus,
+.settings-form .form-group textarea:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 82, 255, 0.15);
+    outline: none;
+}
+
+.btn-danger {
+    background-color: #fef2f2;
+    border-color: #fecaca;
+    color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #dc3545;
+    color: var(--white);
+    border-color: #dc3545;
+    transform: translateY(-2px);
 }

@@ -1,4 +1,4 @@
-// js/main.js - (Updated with Auth Check and Mobile Menu Fix)
+// js/main.js - (FINAL VERSION - Fixes Mobile Menu Links & Toggling)
 
 import { getSession } from './auth.js';
 
@@ -21,30 +21,23 @@ async function updateNavBasedOnAuth() {
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- 1. Check Auth State for Navbar ---
-    // Run the auth check as soon as the DOM is loaded
     updateNavBasedOnAuth();
 
     // --- 2. Mobile Menu Setup ---
     const hamburgerMenu = document.getElementById('hamburger');
     const closeMenuButton = document.getElementById('close-icon');
     const mobileMenu = document.getElementById('mobile-menu');
-    const desktopNavLinksContainer = document.getElementById('desktop-nav-links'); // The <div> holding the nav links
-    const desktopNavRightContainer = document.getElementById('desktop-nav-right'); // The <div> holding the auth buttons
+    const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay'); // Get the overlay
+    const desktopNavLinksContainer = document.getElementById('desktop-nav-links');
+    const desktopNavRightContainer = document.getElementById('desktop-nav-right');
     const mobileNavLinksWrapper = document.querySelector('.mobile-nav-links-wrapper');
     const mobileAuthWrapper = document.querySelector('.mobile-auth-wrapper');
     const body = document.body;
 
-    let bodyOverlay = document.querySelector('.mobile-menu-overlay');
-    if (!bodyOverlay) {
-        bodyOverlay = document.createElement('div');
-        bodyOverlay.className = 'mobile-menu-overlay';
-        document.body.appendChild(bodyOverlay);
-    }
-
     function openMobileMenu() {
-        if (mobileMenu && bodyOverlay) {
+        if (mobileMenu && mobileMenuOverlay) {
             mobileMenu.classList.add('active');
-            bodyOverlay.classList.add('active');
+            mobileMenuOverlay.classList.add('active');
             body.classList.add('mobile-menu-open');
             if (hamburgerMenu) {
                 hamburgerMenu.classList.add('active');
@@ -53,9 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function closeMobileMenu() {
-        if (mobileMenu && bodyOverlay) {
+        if (mobileMenu && mobileMenuOverlay) {
             mobileMenu.classList.remove('active');
-            bodyOverlay.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
             body.classList.remove('mobile-menu-open');
             if (hamburgerMenu) {
                 hamburgerMenu.classList.remove('active');
@@ -63,22 +56,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- 3. Populate Mobile Menu (FIXED to clone individual links) ---
+    // --- 3. Populate Mobile Menu (with duplication fix) ---
     if (desktopNavLinksContainer && desktopNavRightContainer && mobileNavLinksWrapper && mobileAuthWrapper) {
 
         // Clear any hardcoded links from the HTML to prevent duplication
         mobileNavLinksWrapper.innerHTML = '';
         mobileAuthWrapper.innerHTML = '';
 
-        // --- FIX 1: Clone individual links ---
-        // Loop through each <a> tag inside the desktop nav links container
+        // Clone individual nav links
         desktopNavLinksContainer.querySelectorAll('a').forEach(link => {
             const clonedLink = link.cloneNode(true);
-            clonedLink.removeAttribute('id'); // Remove any IDs
+            clonedLink.removeAttribute('id');
             mobileNavLinksWrapper.appendChild(clonedLink);
         });
 
-        // --- FIX 2: Clone the auth view divs directly ---
+        // Clone the auth view divs
         const clonedAuthLoggedOut = desktopNavRightContainer.querySelector('.logged-out-view')?.cloneNode(true);
         const clonedAuthLoggedIn = desktopNavRightContainer.querySelector('.logged-in-view')?.cloneNode(true);
 
@@ -115,8 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (bodyOverlay) {
-        bodyOverlay.addEventListener('click', (e) => {
+    if (mobileMenuOverlay) { // Use the correct overlay variable
+        mobileMenuOverlay.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
             closeMobileMenu();
@@ -126,7 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 5. Close Mobile Menu when a link inside it is clicked ---
     if (mobileMenu) {
         mobileMenu.addEventListener('click', (event) => {
-            if (event.target.tagName === 'A' && event.target.closest('.mobile-menu')) {
+            // Check if a link *or* a button inside the menu was clicked
+            if (event.target.closest('a') || event.target.closest('button')) {
                 closeMobileMenu();
             }
         });
@@ -140,9 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 7. Other scripts from index.html (Scroll behavior, etc.) ---
-
-    // Smooth scrolling for anchor links
+    // --- 7. Smooth scrolling for anchor links ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -156,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Debounce function
+    // --- 8. Debounce function ---
     function debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -169,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // Debounced scroll handler for header background
+    // --- 9. Debounced scroll handler for header background ---
     const debouncedScrollHandler = debounce(() => {
         const header = document.querySelector('.header');
         if (header) {
@@ -184,50 +175,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 10);
 
     window.addEventListener('scroll', debouncedScrollHandler);
-
-    // Add click animation to buttons
-    document.querySelectorAll('.btn').forEach(btn => {
-        btn.addEventListener('click', function (e) {
-            // Only add ripple if it's not a link that's navigating away
-            if (this.tagName !== 'A' || this.getAttribute('href') === '#') {
-                const ripple = document.createElement('span');
-                const rect = this.getBoundingClientRect();
-                const size = Math.max(rect.width, rect.height);
-                const x = e.clientX - rect.left - size / 2;
-                const y = e.clientY - rect.top - size / 2;
-
-                ripple.style.width = ripple.style.height = size + 'px';
-                ripple.style.left = x + 'px';
-                ripple.style.top = y + 'px';
-                ripple.style.position = 'absolute';
-                ripple.style.borderRadius = '50%';
-                ripple.style.background = 'rgba(255, 255, 255, 0.6)';
-                ripple.style.transform = 'scale(0)';
-                ripple.style.animation = 'ripple 0.6s linear';
-                ripple.style.pointerEvents = 'none';
-
-                if (getComputedStyle(this).position === 'static') {
-                    this.style.position = 'relative';
-                }
-                this.style.overflow = 'hidden';
-                this.appendChild(ripple);
-
-                setTimeout(() => {
-                    ripple.remove();
-                }, 600);
-            }
-        });
-    });
-
-    // Add ripple animation keyframes
-    const style = document.createElement('style');
-    style.textContent = `
-    @keyframes ripple {
-        to {
-            transform: scale(4);
-            opacity: 0;
-        }
-    }
-    `;
-    document.head.appendChild(style);
 });
