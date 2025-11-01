@@ -17,7 +17,6 @@
 </head>
 
 <body>
-    <!-- Header -->
     <header class="header">
         <div class="container">
             <nav class="nav">
@@ -25,6 +24,7 @@
                 <div class="nav-links" id="desktop-nav-links">
                     <a href="index.html#services">Services</a>
                     <a href="index.html#buy-for-me">Buy For Me</a>
+                    <a href="dashboard.html#pay-supplier-view">Pay Supplier</a>
                     <a href="index.html#process">How It Works</a>
                     <a href="about.html">About</a>
                     <a href="contact.html" class="active">Contact</a>
@@ -39,37 +39,24 @@
                 </button>
             </nav>
         </div>
+    </header> <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-top">
+            <h3>Menu</h3>
+            <button class="close-icon" id="close-icon">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
 
-        <!-- Mobile Menu -->
-        <div class="mobile-menu" id="mobile-menu">
-            <div class="mobile-menu-top">
-                <h3>Menu</h3>
-                <button class="close-icon" id="close-icon">
-                    <i class="fas fa-times"></i>
-                </button>
+        <div class="mobile-nav-links-wrapper">
             </div>
 
-            <div class="mobile-nav-links-wrapper">
-                <a href="index.html#services">Services</a>
-                <a href="index.html#buy-for-me">Buy For Me</a>
-                <a href="pay-supplier.html">Pay Supplier</a>
-                <a href="index.html#process">How It Works</a>
-                <a href="about.html">About</a>
-                <a href="contact.html" class="active">Contact</a>
-
-                <div class="logged-out-view">
-                    <a href="login.html" class="btn btn-secondary">Login</a>
-                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
-                </div>
+        <div class="mobile-auth-wrapper">
             </div>
+    </div>
+
+    <div class="mobile-menu-overlay"></div>
 
 
-
-            <!-- Mobile Menu Overlay -->
-            <div class="mobile-menu-overlay"></div>
-    </header>
-
-    <!-- Contact Hero Section -->
     <section class="contact-hero">
         <div class="container">
             <div class="contact-hero-content fade-in">
@@ -83,11 +70,9 @@
         </div>
     </section>
 
-    <!-- Contact Main Section -->
     <section class="contact-main-section">
         <div class="container">
             <div class="contact-main-grid">
-                <!-- Contact Info Blocks -->
                 <div class="contact-info-blocks">
                     <div class="contact-block fade-in">
                         <h4>Chat to us</h4>
@@ -111,7 +96,6 @@
                     </div>
                 </div>
 
-                <!-- Contact Form -->
                 <div class="contact-form-card scale-in">
                     <h3>Send us a message</h3>
                     <form id="contact-form" action="https://formsubmit.co/c2glogisticsgh@gmail.com" method="POST">
@@ -141,7 +125,6 @@
                             <textarea id="contact-message" name="message" rows="6"
                                 placeholder="Type your message here..."></textarea>
                         </div>
-                        <!-- Hidden fields for FormSubmit.co -->
                         <input type="hidden" name="_subject" value="New Contact Message from C2G Logistics!">
                         <input type="hidden" name="_next" value="https://yourdomain.com/contact.html?success=true">
 
@@ -153,7 +136,6 @@
         </div>
     </section>
 
-    <!-- Lower CTA Section -->
     <section class="contact-lower-cta-section">
         <div class="container">
             <div class="lower-cta-card fade-in">
@@ -171,12 +153,10 @@
         </div>
     </section>
 
-    <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/233241465282" target="_blank" class="whatsapp-float">
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
@@ -223,13 +203,13 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 C2G Logistics. All Rights Reserved.</p>
+                <p>© 2025 C2G Logistics. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
 
-    <script type="module" src="js/supabase-client.js"></script>
+    <script type(="module" src="js/supabase-client.js"></script>
     <script type="module" src="js/auth-guard.js"></script>
     <script type="module" src="js/main.js"></script>
     <script type="module" src="js/auth.js"></script>
