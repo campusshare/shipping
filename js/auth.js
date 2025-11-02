@@ -9,9 +9,9 @@ import { supabase } from './supabase-client.js';
  */
 const getSession = async () => {
     const { data, error } = await supabase.auth.getSession();
-    if (error) { 
-        console.error("auth.js: Error getting session:", error); 
-        return null; 
+    if (error) {
+        console.error("auth.js: Error getting session:", error);
+        return null;
     }
     return data.session;
 };
@@ -27,16 +27,16 @@ const getSession = async () => {
  */
 const signUp = async (email, password) => {
     const { data, error } = await supabase.auth.signUp({
-        email: email, 
+        email: email,
         password: password,
     });
 
     if (error) {
         console.error("auth.js: Supabase Auth SignUp Error:", error);
-        alert('Signup Error: ' + error.message);
+        alert('Signup Error: ' + error.message); // Keep alert for signup as it's a different form
         return null;
     }
-    
+
     console.log("auth.js: Supabase Auth SignUp successful for:", data.user.email);
     return data.user;
 };
@@ -45,22 +45,26 @@ const signUp = async (email, password) => {
  * Signs in a regular user (customer). Does not redirect.
  * @param {string} email - The user's email.
  * @param {string} password - The user's password.
- * @returns {Promise<object|null>} The user object on success, or null on failure.
+ * @returns {Promise<object|null>} The user object on success, or throws an error on failure.
  */
 const signIn = async (email, password) => {
     const { data, error } = await supabase.auth.signInWithPassword({
-        email: email, 
+        email: email,
         password: password,
     });
 
-    if (error) { 
-        let errorMessage = error.message.includes('invalid login credentials') 
+    if (error) {
+        console.error("auth.js: Supabase signIn Error:", error);
+        let errorMessage = error.message.includes('Invalid login credentials')
             ? 'Invalid email or password. Please try again.'
             : 'Login Error: ' + error.message;
-        alert(errorMessage); 
-        return null; 
+
+        // --- THIS IS THE CHANGE ---
+        // Instead of alerting, we throw an error for the login.js to catch
+        throw new Error(errorMessage);
+        // --- END OF CHANGE ---
     }
-    
+
     console.log("auth.js: Successful customer login for:", data.user.email);
     return data.user;
 };
@@ -69,20 +73,24 @@ const signIn = async (email, password) => {
  * Signs in an admin user. Does not redirect.
  * @param {string} email - The admin's email.
  * @param {string} password - The admin's password.
- * @returns {Promise<object|null>} The user object on success, or null on failure.
+ * @returns {Promise<object|null>} The user object on success, or throws an error on failure.
  */
 const adminSignIn = async (email, password) => {
     const { data, error } = await supabase.auth.signInWithPassword({
-        email: email, 
+        email: email,
         password: password,
     });
 
     if (error) {
+        console.error("auth.js: Supabase adminSignIn Error:", error);
         let errorMessage = error.message.includes('invalid login credentials')
             ? 'Invalid email or password. Please try again.'
             : 'Admin Login Error: ' + error.message;
-        alert(errorMessage);
-        return null;
+
+        // --- THIS IS THE CHANGE ---
+        // Instead of alerting, we throw an error for the admin-login.js to catch
+        throw new Error(errorMessage);
+        // --- END OF CHANGE ---
     }
 
     console.log("auth.js: Successful admin login for:", data.user.email);
@@ -132,7 +140,7 @@ const logoutAndRedirect = async (redirectPath = 'index.html') => {
         alert('An error occurred during logout. Please try again.');
         return false;
     }
-    
+
     console.log(`auth.js: User signed out. Redirecting to ${redirectPath}`);
     window.location.href = redirectPath;
     return true;
@@ -154,24 +162,24 @@ const resetPassword = async (email) => {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: window.location.origin + '/update-password.html'
     });
-    
+
     if (error) {
         console.error("Password reset error:", error);
         return { success: false, message: error.message };
     }
-    
+
     return { success: true, message: 'Password reset link sent! Please check your email.' };
 };
 
 // Export all functions to be used across the application
-export { 
-    supabase, 
-    getSession, 
-    signUp, 
-    signIn, 
-    adminSignIn, 
+export {
+    supabase,
+    getSession,
+    signUp,
+    signIn,
+    adminSignIn,
     checkAdminRole,
-    signOut, 
-    resetPassword, 
-    logoutAndRedirect 
+    signOut,
+    resetPassword,
+    logoutAndRedirect
 };

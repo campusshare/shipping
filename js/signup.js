@@ -1,9 +1,7 @@
-// js/signup.js (Updated to use correct new unique IDs)
 
 import { signUp } from './auth.js';
 import { supabase } from './supabase-client.js';
 
-// Generate Customer Unique ID with initials
 function generateCustomerUniqueId(fullName) {
     let initials = 'XX';
 
@@ -23,24 +21,20 @@ function generateCustomerUniqueId(fullName) {
 
 document.addEventListener('DOMContentLoaded', () => {
     const signupForm = document.getElementById('signup-form');
-    // FIXED: Select the correct message div
     const messageDiv = document.getElementById('auth-message-signup');
 
     if (signupForm) {
         signupForm.addEventListener('submit', async (event) => {
             event.preventDefault();
 
-            // FIXED: Get button by its new ID
             const signupButton = signupForm.querySelector('#signup-btn');
 
-            // FIXED: Use the correct, unique IDs from the new HTML
             const fullName = document.getElementById('signup-name').value;
             const email = document.getElementById('signup-email').value;
             const phone = document.getElementById('signup-phone').value;
             const password = document.getElementById('signup-password').value;
             const confirmPassword = document.getElementById('signup-confirm-password').value;
 
-            // --- Helper function to show messages ---
             const showMessage = (message, isError = false) => {
                 if (!messageDiv) return;
                 messageDiv.textContent = message;
@@ -48,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 messageDiv.style.display = 'block';
             };
 
-            // Client-side validation
             if (!fullName || !email || !phone || !password) {
                 showMessage('Please fill in all required fields.', true);
                 return;
@@ -67,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
             signupButton.textContent = 'Checking...';
             signupButton.disabled = true;
 
-            // *** STEP 1: Check if email is associated with a suspended account ***
             const { data: emailCheck, error: emailError } = await supabase
                 .from('customers')
                 .select('status, email')
@@ -81,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // *** STEP 2: Check if phone is associated with a suspended account ***
             if (phone) {
                 const { data: phoneCheck, error: phoneError } = await supabase
                     .from('customers')
@@ -101,13 +92,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             signupButton.textContent = 'Creating Account...';
 
-            // STEP 3: Create the user in Supabase Auth
-            const authUser = await signUp(email, password); // auth.js will show its own alert on failure
+            const authUser = await signUp(email, password);
 
             if (authUser) {
                 console.log("Signup Step 1 Success. Now creating customer profile...");
 
-                // STEP 4: Generate unique customer ID with initials
                 const customerUniqueId = generateCustomerUniqueId(fullName);
                 console.log("Generated Customer ID:", customerUniqueId);
 
@@ -132,10 +121,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     showMessage('Signup successful! Please check your email for a confirmation link.', false);
                     setTimeout(() => {
                         window.location.href = 'login.html';
-                    }, 3000); // Redirect to login after 3 seconds
+                    }, 3000);
                 }
             } else {
-                // signIn function already showed an alert
+
                 showMessage('Sign up failed. This email may already be in use.', true);
                 signupButton.textContent = 'Create Account';
                 signupButton.disabled = false;

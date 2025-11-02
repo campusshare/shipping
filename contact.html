@@ -24,14 +24,16 @@
                 <div class="nav-links" id="desktop-nav-links">
                     <a href="index.html#services">Services</a>
                     <a href="index.html#buy-for-me">Buy For Me</a>
-                    <a href="dashboard.html#pay-supplier-view">Pay Supplier</a>
+                    <a href="login.html">Pay Supplier</a>
                     <a href="index.html#process">How It Works</a>
                     <a href="about.html">About</a>
                     <a href="contact.html" class="active">Contact</a>
                 </div>
                 <div class="nav-links" id="desktop-nav-right">
-                    <a href="login.html" class="btn btn-secondary logged-out-view">Login</a>
-                    <a href="signup.html" class="btn btn-primary logged-out-view">Sign Up</a>
+                    <div class="logged-out-view">
+                        <a href="login.html" class="btn btn-secondary">Login</a>
+                        <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                    </div>
                     <a href="dashboard.html" class="btn btn-primary logged-in-view">My Dashboard</a>
                 </div>
                 <button class="mobile-menu-toggle" id="hamburger">
@@ -39,7 +41,8 @@
                 </button>
             </nav>
         </div>
-    </header> <div class="mobile-menu" id="mobile-menu">
+    </header>
+    <div class="mobile-menu" id="mobile-menu">
         <div class="mobile-menu-top">
             <h3>Menu</h3>
             <button class="close-icon" id="close-icon">
@@ -48,20 +51,18 @@
         </div>
 
         <div class="mobile-nav-links-wrapper">
-            </div>
+        </div>
 
         <div class="mobile-auth-wrapper">
-            </div>
+        </div>
     </div>
 
     <div class="mobile-menu-overlay"></div>
-
-
     <section class="contact-hero">
         <div class="container">
             <div class="contact-hero-content fade-in">
                 <div class="breadcrumb">
-                    <a href="index.html">Home</a> / Contact Us
+                    <a href="index.html">C2g Logistics</a> | Contact Us
                 </div>
                 <h1 class="animate-pulse">Let's Connect</h1>
                 <p class="contact-hero-subtitle">We're here to help you every step of the way. Get in touch with our
@@ -126,7 +127,7 @@
                                 placeholder="Type your message here..."></textarea>
                         </div>
                         <input type="hidden" name="_subject" value="New Contact Message from C2G Logistics!">
-                        <input type="hidden" name="_next" value="https://yourdomain.com/contact.html?success=true">
+                        <input type="hidden" name="_next" value="httpsD.com/contact.html?success=true">
 
                         <button type="submit" class="btn btn-primary">Send message</button>
                         <div id="contact-message-status" class="auth-message" style="display: none;"></div>
@@ -168,30 +169,32 @@
                         <a href="#" class="animate-bounce"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="animate-bounce" style="animation-delay: 0.2s;"><i
                                 class="fab fa-instagram"></i></a>
-                        <a href="#" class="animate-bounce" style="animation-delay: 0.4s;"><i
-                                class="fab fa-twitter"></i></a>
-                        <a href="#" class="animate-bounce" style="animation-delay: 0.6s;"><i
-                                class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
+
                 <div class="footer-col">
                     <h4>Company</h4>
                     <ul>
                         <li><a href="about.html">About Us</a></li>
-                        <li><a href="index.html#services">Services</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
                         <li><a href="index.html#process">How It Works</a></li>
+                        <li><a href="get-quote.html">Shipping Calculator</a></li>
                     </ul>
                 </div>
+
                 <div class="footer-col">
-                    <h4>Resources</h4>
+                    <h4>Services</h4>
                     <ul>
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="signup.html">Sign Up</a></li>
-                        <li><a href="login.html">Track Package</a></li>
+                        <li><a href="index.html#buy-for-me">Buy For Me (Procurement)</a></li>
+                        <li><a href="login.html">Pay a Supplier</a></li>
+                        <li><a href="login.html">My Warehouse Address</a></li>
+                        <li><a href="login.html">Track Your Package</a></li>
+                        <li><a href="login.html">Login</a> / <a href="signup.html">Sign Up</a></li>
                     </ul>
                 </div>
+
                 <div class="footer-col">
-                    <h4>Contact Us</h4>
+                    <h4>Contact Info</h4>
                     <ul>
                         <li><i class="fas fa-phone-alt" style="margin-right: 8px; color: var(--primary-blue);"></i> +233
                             24 146 5282</li>
@@ -208,9 +211,8 @@
         </div>
     </footer>
 
-
-    <script type(="module" src="js/supabase-client.js"></script>
-    <script type="module" src="js/auth-guard.js"></script>
+    <script type="module" src="js/supabase-client.js"></script>
+    <script typeWhat="module" src="js/auth-guard.js"></script>
     <script type="module" src="js/main.js"></script>
     <script type="module" src="js/auth.js"></script>
 </body>

@@ -33,6 +33,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <meta name="google-site-verification" content="FSHYnt2pmKqZwx-kP83KgobCcZo8SIQZSaQC72jG2D4" />
 </head>
 
@@ -45,13 +46,14 @@
                     <a href="#services">Services</a>
                     <a href="#buy-for-me">Buy For Me</a>
                     <a href="dashboard.html#pay-supplier-view">Pay Supplier</a>
-                    <a href="#process">How It Works</a>
+                    <a href="get-quote.html">Get Quote</a>
                     <a href="about.html">About</a>
                     <a href="contact.html">Contact</a>
                 </div>
                 <div class="nav-links" id="desktop-nav-right">
-                    <a href="login.html" class="btn btn-secondary logged-out-view">Login</a>
-                    <a href="signup.html" class="btn btn-primary logged-out-view">Sign Up</a>
+                    <div class="logged-out-view"> <a href="login.html" class="btn btn-secondary">Login</a>
+                        <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                    </div>
                     <a href="dashboard.html" class="btn btn-primary logged-in-view">My Dashboard</a>
                 </div>
                 <button class="mobile-menu-toggle" id="hamburger">
@@ -59,23 +61,18 @@
                 </button>
             </nav>
         </div>
-    </header> <div class="mobile-menu" id="mobile-menu">
+    </header>
+    <div class="mobile-menu" id="mobile-menu">
         <div class="mobile-menu-top">
             <h3>Menu</h3>
             <button class="close-icon" id="close-icon">
                 <i class="fas fa-times"></i>
             </button>
         </div>
-
-        <div class="mobile-nav-links-wrapper">
-            </div>
-
-        <div class="mobile-auth-wrapper">
-            </div>
+        <div class="mobile-nav-links-wrapper"></div>
+        <div class="mobile-auth-wrapper"></div>
     </div>
-
     <div class="mobile-menu-overlay"></div>
-
 
     <section class="hero">
         <div class="container">
@@ -93,33 +90,11 @@
         </div>
     </section>
 
-    <section class="trusted-partners">
-        <div class="container">
-            <div class="partners-content">
-                <p class="partners-title">We Procure from China's Best</p>
-                <div class="partner-logos">
-                    <div class="partner-logo taobao animate-float">淘宝 Taobao</div>
-                    <div class="partner-logo pinduoduo animate-float" style="animation-delay: 0.5s;">拼多多 Pinduoduo</div>
-                    <div class="partner-logo tmall animate-float" style="animation-delay: 1s;">天猫 Tmall</div>
-                    <div class="partner-logo animate-float" style="background: #ff6600; animation-delay: 2s;">1688 批发
-                    </div>
-                </div>
-                <div style="text-align: center; margin-top: 2rem;">
-                    <p style="font-size: 0.9rem; color: var(--text-muted); font-weight: 500;">
-                        <i class="fas fa-shipping-fast" style="color: var(--primary-blue); margin-right: 8px;"></i>
-                        <strong>Shipping Schedule:</strong> Air Express: 3-7 days, Air / Normal: 12-16 days, Sea: 35-45
-                        days.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section class="services" id="services">
         <div class="container">
             <div class="section-header fade-in">
                 <h2 class="section-title">Our Core Services</h2>
-                <p class="section-subtitle">Three powerful solutions to connect you directly to the Chinese market.</p>
+                <p class="section-subtitle">Powerful solutions to connect you directly to the Chinese market.</p>
             </div>
             <div class="services-grid">
                 <div class="service-card scale-in">
@@ -145,9 +120,39 @@
                         <i class="fas fa-shipping-fast"></i>
                     </div>
                     <h3>Ship Your Goods</h3>
-                    <p>Already bought your items? Use our reliable air express logistics. Here's our shipping schedule
-                        Air Express: 3-7 days, Air / Normal: 12-16 days, Sea: 35-45 days.</p>
+                    <p>Already bought your items? Use our reliable air express logistics. Air Express: 3-7 days, Air /
+                        Normal: 12-16 days, Sea: 35-45 days.</p>
                     <a href="login.html" class="learn-more">Get Started <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card scale-in" style="animation-delay: 0.6s;">
+                    <div class="service-icon">
+                        <i class="fas fa-cedi-sign"></i>
+                    </div>
+                    <h3>Pay Suppliers</h3>
+                    <p>We help you transfer money from Ghana to China seamlessly. Pay us in cedis then we sent it to
+                        your suppliers in Yuan (RMB)
+                        quickly and securely, at wonderful rates.</p>
+                    <a href="dashboard.html#pay-supplier-view" class="learn-more">Pay Now <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card scale-in" style="animation-delay: 0.8s;">
+                    <div class="service-icon">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <h3>Package Consolidation</h3>
+                    <p>Buy from multiple suppliers and we'll combine all your items into one shipment. This saves you
+                        a huge amount on international shipping fees.</p>
+                    <a href="dashboard.html#warehouse-address-view" class="learn-more">Learn More <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card scale-in" style="animation-delay: 1.0s;">
+                    <div class="service-icon">
+                        <i class="fas fa-check-double"></i>
+                    </div>
+                    <h3>Quality Inspection</h3>
+                    <p>Want to be sure you're getting what you paid for? We can open, inspect, and take photos of your
+                        items in our China warehouse before shipping them to you.</p>
+                    <a href="contact.html" class="learn-more">Request Inspection <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -313,22 +318,22 @@
                     <div class="stat-item fade-in">
                         <i class="fas fa-users stat-icon animate-bounce"></i>
                         <span class="stat-number">450+</span>
-                        <span class="stat-label">Happy Customers</span>
+                        <p class="stat-label">Happy Customers</p>
                     </div>
                     <div class="stat-item fade-in" style="animation-delay: 0.2s;">
                         <i class="fas fa-box stat-icon animate-bounce" style="animation-delay: 0.5s;"></i>
                         <span class="stat-number">2,000+</span>
-                        <span class="stat-label">Completed Orders</span>
+                        <p class="stat-label">Completed Orders</p>
                     </div>
                     <div class="stat-item fade-in" style="animation-delay: 0.4s;">
                         <i class="fas fa-truck stat-icon animate-bounce" style="animation-delay: 1s;"></i>
                         <span class="stat-number">99.8%</span>
-                        <span class="stat-label">Delivery Success Rate</span>
+                        <p class="stat-label">Delivery Success Rate</p>
                     </div>
                     <div class="stat-item fade-in" style="animation-delay: 0.6s;">
                         <i class="fas fa-headset stat-icon animate-bounce" style="animation-delay: 1.5s;"></i>
                         <span class="stat-number">24/7</span>
-                        <span class="stat-label">Customer Support</span>
+                        <p class="stat-label">Customer Support</p>
                     </div>
                 </div>
             </div>
@@ -342,7 +347,7 @@
                 <p class="section-subtitle">Shop independently with your personal China address. We receive,
                     consolidate, and ship to Ghana upon selecting a method of shipping & paying your shipping fee.</p>
             </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+            <div class="warehouse-features-grid" data-aos="fade-up">
                 <div class="fade-in">
                     <div style="display: flex; flex-direction: column; gap: 2rem;">
                         <div style="display: flex; align-items: center; gap: 1rem; padding: 1.5rem; background: var(--bg-light); border-radius: 12px; transition: transform 0.3s ease;"
@@ -448,24 +453,30 @@
                                 class="fab fa-instagram"></i></a>
                     </div>
                 </div>
+
                 <div class="footer-col">
                     <h4>Company</h4>
                     <ul>
                         <li><a href="about.html">About Us</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#process">How It Works</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="index.html#process">How It Works</a></li>
+                        <li><a href="get-quote.html">Shipping Calculator</a></li>
                     </ul>
                 </div>
+
                 <div class="footer-col">
-                    <h4>Resources</h4>
+                    <h4>Services</h4>
                     <ul>
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="signup.html">Sign Up</a></li>
-                        <li><a href="login.html">Track Package</a></li>
+                        <li><a href="index.html#buy-for-me">Buy For Me (Procurement)</a></li>
+                        <li><a href="login.html">Pay a Supplier</a></li>
+                        <li><a href="login.html">My Warehouse Address</a></li>
+                        <li><a href="login.html">Track Your Package</a></li>
+                        <li><a href="login.html">Login</a> / <a href="signup.html">Sign Up</a></li>
                     </ul>
                 </div>
+
                 <div class="footer-col">
-                    <h4>Contact Us</h4>
+                    <h4>Contact Info</h4>
                     <ul>
                         <li><i class="fas fa-phone-alt" style="margin-right: 8px; color: var(--primary-blue);"></i> +233
                             24 146 5282</li>
@@ -477,15 +488,14 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 C2G Logistics. All Rights Reserved.</p>
+                <p>© 2025 C2G Logistics. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
-
     <script type="module" src="js/supabase-client.js"></script>
     <script type="module" src="js/auth-guard.js"></script>
     <script type="module" src="js/main.js"></script>
-    <script type.module" src="js/auth.js"></script>
+    <script type="module" src="js/auth.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 </body>
 

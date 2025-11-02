@@ -1,11 +1,6 @@
-// js/main.js - (FINAL VERSION - Fixes Mobile Menu Links & Toggling)
 
 import { getSession } from './auth.js';
 
-/**
- * Checks the user's authentication status and updates the <body> class
- * to show/hide 'Login/Sign Up' vs 'My Dashboard' links.
- */
 async function updateNavBasedOnAuth() {
     console.log("main.js: Checking auth state for navbar...");
     const session = await getSession();
@@ -20,14 +15,13 @@ async function updateNavBasedOnAuth() {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- 1. Check Auth State for Navbar ---
     updateNavBasedOnAuth();
 
     // --- 2. Mobile Menu Setup ---
     const hamburgerMenu = document.getElementById('hamburger');
     const closeMenuButton = document.getElementById('close-icon');
     const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay'); // Get the overlay
+    const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay'); // overlay
     const desktopNavLinksContainer = document.getElementById('desktop-nav-links');
     const desktopNavRightContainer = document.getElementById('desktop-nav-right');
     const mobileNavLinksWrapper = document.querySelector('.mobile-nav-links-wrapper');
@@ -56,21 +50,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- 3. Populate Mobile Menu (with duplication fix) ---
     if (desktopNavLinksContainer && desktopNavRightContainer && mobileNavLinksWrapper && mobileAuthWrapper) {
 
-        // Clear any hardcoded links from the HTML to prevent duplication
         mobileNavLinksWrapper.innerHTML = '';
         mobileAuthWrapper.innerHTML = '';
 
-        // Clone individual nav links
         desktopNavLinksContainer.querySelectorAll('a').forEach(link => {
             const clonedLink = link.cloneNode(true);
             clonedLink.removeAttribute('id');
             mobileNavLinksWrapper.appendChild(clonedLink);
         });
 
-        // Clone the auth view divs
         const clonedAuthLoggedOut = desktopNavRightContainer.querySelector('.logged-out-view')?.cloneNode(true);
         const clonedAuthLoggedIn = desktopNavRightContainer.querySelector('.logged-in-view')?.cloneNode(true);
 
@@ -90,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn("main.js: Could not find all elements needed to build mobile menu.");
     }
 
-    // --- 4. Event Listeners for Menu Toggle ---
     if (hamburgerMenu) {
         hamburgerMenu.addEventListener('click', (e) => {
             e.preventDefault();
@@ -107,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (mobileMenuOverlay) { // Use the correct overlay variable
+    if (mobileMenuOverlay) {
         mobileMenuOverlay.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -115,17 +104,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 5. Close Mobile Menu when a link inside it is clicked ---
     if (mobileMenu) {
         mobileMenu.addEventListener('click', (event) => {
-            // Check if a link *or* a button inside the menu was clicked
             if (event.target.closest('a') || event.target.closest('button')) {
                 closeMobileMenu();
             }
         });
     }
 
-    // --- 6. Scroll animations (AOS) ---
     if (typeof AOS !== 'undefined') {
         AOS.init({
             duration: 800,
@@ -133,7 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 7. Smooth scrolling for anchor links ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -147,7 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 8. Debounce function ---
     function debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -160,7 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // --- 9. Debounced scroll handler for header background ---
     const debouncedScrollHandler = debounce(() => {
         const header = document.querySelector('.header');
         if (header) {

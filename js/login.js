@@ -1,23 +1,28 @@
-// js/login.js (This is now a module)
 
-import { signIn } from './auth.js';
-// We DON'T import from math-captcha.js because it's a global script
+import { signIn, checkAdminRole } from './auth.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log(">>> login.js DOMContentLoaded fired!");
 
     const loginForm = document.getElementById('login-form');
-    // This ID matches your HTML
     const loginButton = document.getElementById('login-submit-btn');
     const mathAnswerInput = document.getElementById('math-answer');
 
-    // --- THIS IS THE FIX ---
-    // Changed 'message' to 'auth-message-login' to match your HTML
     const messageDiv = document.getElementById('auth-message-login');
 
+    const showMessage = (message, isError = true) => {
+        if (!messageDiv) return;
+        messageDiv.textContent = message;
+        messageDiv.className = isError ? 'auth-message error' : 'auth-message success';
+        messageDiv.style.display = 'block';
+    };
+
     if (loginButton) {
-        // Init captcha from global scope (loaded from non-module script)
-        initMathCaptcha(loginButton);
+        if (typeof initMathCaptcha === 'function') {
+            initMathCaptcha(loginButton);
+        } else {
+            console.error("math-captcha.js not loaded or initMathCaptcha not defined globally.");
+        }
     } else {
         console.error("CRITICAL ERROR: Login submit button with ID 'login-submit-btn' NOT FOUND!");
     }
@@ -27,45 +32,59 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             console.log(">>> Login form submitted.");
 
+            if (messageDiv) messageDiv.style.display = 'none';
+
             if (!mathAnswerInput) {
                 console.error("ERROR: Math answer input (id='math-answer') not found on submit!");
-                if (messageDiv) {
-                    messageDiv.textContent = 'Internal error: CAPTCHA input missing.';
-                    messageDiv.className = 'auth-message error';
-                    messageDiv.style.display = 'block';
+                showMessage('Internal error: CAPTCHA input missing.', true);
+                return;
+            }
+
+            if (typeof validateMathPuzzleOnSubmit !== 'function' || !validateMathPuzzleOnSubmit(mathAnswerInput.value)) {
+                console.log(">>> CAPTCHA validation failed on submit.");
+                if (loginButton) {
+                    loginButton.textContent = 'Sign In';
+                    loginButton.disabled = true;
                 }
                 return;
             }
 
-            // Perform final math CAPTCHA validation on submit
-            if (!validateMathPuzzleOnSubmit(mathAnswerInput.value)) {
-                console.log(">>> CAPTCHA validation failed on submit.");
-                return; // Stop form submission
-            }
-
             console.log(">>> CAPTCHA passed on submit. Proceeding with login.");
 
-            // IDs from your HTML
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            loginButton.textContent = 'Logging In...';
-            loginButton.disabled = true;
+            if (loginButton) {
+                loginButton.textContent = 'Logging In...';
+                loginButton.disabled = true;
+            }
 
-            const user = await signIn(email, password); // signIn (from auth.js) will show its own alert on failure
+            try {
+                const user = await signIn(email, password);
 
-            if (user) {
-                console.log(">>> Login successful, redirecting.");
-                window.location.href = 'dashboard.html';
-            } else {
-                console.log(">>> Login failed, loginButton was:", loginButton);
-                // The signIn function in auth.js will show the error alert.
-                // We just need to reset the button.
-                loginButton.textContent = 'Sign In';
-                // The button will be re-disabled by the captcha logic
-                // after the user types a new (incorrect) answer.
-                // We'll call generateMathPuzzle to be safe.
-                generateMathPuzzle(1); // Reset to easy difficulty
+                if (user) {
+                    const isAdmin = await checkAdminRole(user.id);
+                    if (isAdmin) {
+                        console.log(">>> Admin login successful, redirecting to admin dashboard.");
+                        window.location.href = 'admin-dashboard.html';
+                    } else {
+                        console.log(">>> Customer login successful, redirecting to dashboard.");
+                        window.location.href = 'dashboard.html';
+                    }
+                }
+
+            } catch (authError) {
+                console.error("Login process error:", authError.message);
+
+
+                showMessage(authError.message, true);
+
+                if (loginButton) {
+                    loginButton.textContent = 'Sign In';
+                }
+                if (typeof generateMathPuzzle === 'function') {
+                    generateMathPuzzle(difficulty + 1);
+                }
             }
         });
     } else {
