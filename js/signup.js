@@ -1,7 +1,6 @@
 // js/signup.js
 
 import { signUp, supabase } from './auth.js';
-// We import supabase here now to use it directly for getting the user and inserting the profile
 
 function generateCustomerUniqueId(fullName) {
     let initials = 'XX';
@@ -66,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 .from('customers')
                 .select('status, email')
                 .eq('email', email)
-                .single();
+                .maybeSingle(); // Use maybeSingle since we don't expect it to exist yet
 
             if (emailCheck && emailCheck.status === 'suspended') {
                 showMessage('This email is associated with a suspended account. Please contact support.', true);
@@ -95,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             signupButton.textContent = 'Creating Account...';
 
+            // 1. SIGN UP
             const authResponse = await supabase.auth.signUp({ email, password });
             const authUser = authResponse.data.user;
             const authError = authResponse.error;
@@ -108,23 +108,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log("Signup Step 1 Success. Waiting for session stability...");
                 showMessage('Account created! Setting up profile...', false);
                 
-                // --- CRITICAL FIX: Add a small delay and force session refresh ---
-                // This ensures the RLS policy has a chance to see the new user's JWT
+                // --- CRITICAL FIX 1: Add a small delay for session stability ---
                 await new Promise(resolve => setTimeout(resolve, 100));
                 
-                // Fetch the latest user object (optional, but helps ensure state is fresh)
+                // --- CRITICAL FIX 2: Force fetch the latest user session ---
                 const { data: { user: latestUser } } = await supabase.auth.getUser();
 
 
-                if (!latestUser) {
-                     // Should not happen, but critical safety check
+                if (!latestUser || !latestUser.id) {
+                     // If we still lose the session after trying, bail out with an error
                     showMessage("Internal Error: Profile creation failed because we lost the user session.", true);
-                    return;
+                    // No further action, user must log in to create profile
+                    return; 
                 }
                 
                 const customerUniqueId = generateCustomerUniqueId(fullName);
                 console.log("Generated Customer ID:", customerUniqueId);
 
+                // 2. INSERT PROFILE (RLS Protected)
                 const { error: profileError } = await supabase
                     .from('customers')
                     .insert([
