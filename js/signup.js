@@ -1,6 +1,7 @@
+// js/signup.js
 
-import { signUp } from './auth.js';
-import { supabase } from './supabase-client.js';
+import { signUp, supabase } from './auth.js';
+// We import supabase here now to use it directly for getting the user and inserting the profile
 
 function generateCustomerUniqueId(fullName) {
     let initials = 'XX';
@@ -60,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             signupButton.textContent = 'Checking...';
             signupButton.disabled = true;
 
+            // --- Pre-checks (Suspended account check logic remains the same) ---
             const { data: emailCheck, error: emailError } = await supabase
                 .from('customers')
                 .select('status, email')
@@ -90,13 +92,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
+
             signupButton.textContent = 'Creating Account...';
 
-            const authUser = await signUp(email, password);
+            const authResponse = await supabase.auth.signUp({ email, password });
+            const authUser = authResponse.data.user;
+            const authError = authResponse.error;
 
-            if (authUser) {
-                console.log("Signup Step 1 Success. Now creating customer profile...");
 
+            if (authError) {
+                console.error("Supabase Auth SignUp Error:", authError);
+                showMessage(authError.message.includes('User already registered') ? 'This email is already in use.' : 'Sign up failed.', true);
+
+            } else if (authUser) {
+                console.log("Signup Step 1 Success. Waiting for session stability...");
+                showMessage('Account created! Setting up profile...', false);
+                
+                // --- CRITICAL FIX: Add a small delay and force session refresh ---
+                // This ensures the RLS policy has a chance to see the new user's JWT
+                await new Promise(resolve => setTimeout(resolve, 100));
+                
+                // Fetch the latest user object (optional, but helps ensure state is fresh)
+                const { data: { user: latestUser } } = await supabase.auth.getUser();
+
+
+                if (!latestUser) {
+                     // Should not happen, but critical safety check
+                    showMessage("Internal Error: Profile creation failed because we lost the user session.", true);
+                    return;
+                }
+                
                 const customerUniqueId = generateCustomerUniqueId(fullName);
                 console.log("Generated Customer ID:", customerUniqueId);
 
@@ -104,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     .from('customers')
                     .insert([
                         {
-                            id: authUser.id,
+                            id: latestUser.id, // Use the ID from the fresh session
                             name: fullName,
                             email: email,
                             phone: phone,
@@ -114,21 +139,28 @@ document.addEventListener('DOMContentLoaded', () => {
                     ]);
 
                 if (profileError) {
-                    console.error("CRITICAL ERROR: User was created in Auth, but profile creation failed:", profileError);
-                    showMessage("Your account was created, but we couldn't set up your profile. Please contact support. Error: " + profileError.message, true);
+                    console.error("CRITICAL ERROR: Profile creation failed (RLS violation suspected):", profileError);
+                    
+                    // Display the RLS error and instruct user on next steps
+                    showMessage("Your account was created, but we couldn't set up your profile. Please log in again to retry or contact support. Error: " + profileError.message, true);
+                    
+                    // Sign out the partially created user so they can log back in
+                    await supabase.auth.signOut();
+                    
                 } else {
                     console.log("Signup Step 2 Success. Profile created with ID:", customerUniqueId);
+                    
+                    // Since email confirmation is required, tell them to check email
                     showMessage('Signup successful! Please check your email for a confirmation link.', false);
+                    
                     setTimeout(() => {
                         window.location.href = 'login.html';
-                    }, 3000);
+                    }, 4000); // Give them time to read the confirmation message
                 }
-            } else {
-
-                showMessage('Sign up failed. This email may already be in use.', true);
-                signupButton.textContent = 'Create Account';
-                signupButton.disabled = false;
             }
+            
+            signupButton.textContent = 'Create Account';
+            signupButton.disabled = false;
         });
     }
 });
