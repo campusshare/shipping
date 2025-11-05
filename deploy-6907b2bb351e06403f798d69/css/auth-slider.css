@@ -1,0 +1,487 @@
+/* css/auth-slider.css */
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+/* Use the root variables from your existing style.css */
+:root {
+    --primary-blue: #0052FF;
+    --primary-dark: #0a42ab;
+    --white: #FFFFFF;
+    --bg-light: #f6f5f7;
+    --text-dark: #333;
+    --text-muted: #8a8a8a;
+    --border-color: #eee;
+    --error-red: #ef4444;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* New body class for these pages */
+body.auth-body {
+    background: var(--bg-light);
+    display: flex;
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+    flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+/* NEW: Bold header style */
+.auth-header {
+    font-weight: 800;
+    font-size: 2.5rem;
+    color: var(--primary-dark);
+    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}
+
+.auth-h1 {
+    font-weight: bold;
+    margin: 0;
+    color: var(--primary-dark);
+}
+
+.auth-p {
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    margin: 20px 0 30px;
+}
+
+.auth-span {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    /* Added spacing */
+}
+
+.auth-a {
+    color: var(--text-dark);
+    font-size: 14px;
+    text-decoration: none;
+    margin: 15px 0;
+}
+
+.auth-a:hover {
+    color: var(--primary-blue);
+}
+
+.auth-container button {
+    border-radius: 20px;
+    border: 1px solid var(--primary-blue);
+    background-color: var(--primary-blue);
+    color: var(--white);
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in, background-color 0.3s, border-color 0.3s;
+    cursor: pointer;
+    margin-top: 10px;
+    /* Added margin */
+}
+
+.auth-container button:active {
+    transform: scale(0.95);
+}
+
+.auth-container button:focus {
+    outline: none;
+}
+
+.auth-container button.ghost {
+    background-color: transparent;
+    border-color: var(--white);
+}
+
+.auth-container button:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+.auth-container button.ghost:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Disabled button style for captcha */
+.auth-container button:disabled {
+    background-color: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.auth-container form {
+    background-color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+}
+
+/* NEW: Input with Icon styles */
+.input-with-icon {
+    position: relative;
+    width: 100%;
+    margin: 8px 0;
+}
+
+.input-with-icon i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.auth-container input {
+    background-color: var(--border-color);
+    border: none;
+    padding: 12px 15px 12px 40px;
+    /* Added left padding for icon */
+    width: 100%;
+    border-radius: 5px;
+    margin: 0;
+    /* Margin is now on the wrapper */
+}
+
+.auth-container {
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+        0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 520px;
+}
+
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+    overflow-y: auto;
+    /* Make forms scrollable */
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+/* Scrollbar styling */
+.form-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.form-container::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 10px;
+}
+
+.form-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+
+.sign-in-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+    overflow-y: auto;
+    /* Allow login to scroll if captcha makes it too tall */
+}
+
+.sign-up-container {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.auth-container.right-panel-active .sign-in-container {
+    transform: translateX(100%);
+}
+
+.auth-container.right-panel-active .sign-up-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: show 0.6s;
+}
+
+@keyframes show {
+
+    0%,
+    49.99% {
+        opacity: 0;
+        z-index: 1;
+    }
+
+    50%,
+    100% {
+        opacity: 1;
+        z-index: 5;
+    }
+}
+
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+    z-index: 100;
+}
+
+.auth-container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+}
+
+.overlay {
+    background: var(--primary-blue);
+    background: linear-gradient(to right, var(--primary-dark), var(--primary-blue));
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 0;
+    color: var(--white);
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+.auth-container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+.overlay-panel {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    text-align: center;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+.overlay-left {
+    transform: translateX(-20%);
+}
+
+.auth-container.right-panel-active .overlay-left {
+    transform: translateX(0);
+}
+
+.overlay-right {
+    right: 0;
+    transform: translateX(0);
+}
+
+.auth-container.right-panel-active .overlay-right {
+    transform: translateX(20%);
+}
+
+/* REMOVED: Social container is gone */
+.social-container {
+    display: none;
+}
+
+/* Styles for your specific auth elements */
+.auth-message {
+    font-size: 14px;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    display: none;
+    /* Hidden by default */
+}
+
+.auth-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    display: block;
+}
+
+.auth-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    display: block;
+}
+
+/* CAPTCHA STYLES (Replicating your old code's structure) */
+.form-group.math-captcha-group {
+    width: 100%;
+    margin: 8px 0;
+    text-align: left;
+}
+
+.form-group.math-captcha-group label {
+    font-weight: 500;
+    color: var(--text-dark);
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.form-group.math-captcha-group label #math-puzzle {
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+
+/* Style for the captcha input to match others */
+.form-group.math-captcha-group .input-with-icon input {
+    background-color: var(--border-color);
+    border: 1px solid var(--border-color);
+    /* Added border */
+    padding: 12px 15px 12px 40px;
+    /* Added left padding for icon */
+    width: 100%;
+    border-radius: 5px;
+    margin: 0;
+    /* Ensure it has a border */
+    border: 1px solid var(--border-color);
+}
+
+/* Ensure captcha input has a border when focused */
+.form-group.math-captcha-group .input-with-icon input:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 82, 255, 0.15);
+    outline: none;
+}
+
+
+/* Error message for captcha */
+#math-error {
+    font-size: 0.85em;
+    color: var(--error-red);
+    display: none;
+    text-align: left;
+    margin-top: 5px;
+}
+
+
+/* MOBILE RESPONSIVENESS (FIXED) */
+.mobile-toggle {
+    display: none;
+    /* Hidden on desktop */
+    margin-top: 15px;
+    font-weight: bold;
+    color: var(--primary-blue);
+}
+
+@media (max-width: 768px) {
+    body.auth-body {
+        height: auto;
+        min-height: 100vh;
+        padding: 0;
+        justify-content: center;
+        /* FIXED: Center vertically */
+    }
+
+    /* NEW: Show header on mobile */
+    .auth-header {
+        padding-top: 40px;
+        padding-bottom: 20px;
+        /* Add padding below header */
+        font-size: 2rem;
+        margin-bottom: 0;
+        background: var(--white);
+        width: 100%;
+        text-align: center;
+        /* Make header not part of the viewport height */
+        flex-shrink: 0;
+    }
+
+    .auth-container {
+        width: 100%;
+        max-width: 100%;
+        min-height: auto;
+        /* Let it be natural height */
+        height: auto;
+        border-radius: 0;
+        box-shadow: none;
+        flex-grow: 1;
+        /* Make it take up remaining space */
+        display: flex;
+        /* Use flex to center the forms */
+        align-items: center;
+        /* Center vertically */
+    }
+
+    .overlay-container {
+        display: none;
+        /* Hide the sliding overlay on mobile */
+    }
+
+    .form-container {
+        width: 100%;
+        position: relative;
+        /* Change from absolute */
+        top: auto;
+        height: auto;
+        padding: 20px 25px;
+        /* Reduced padding for mobile */
+        transform: none !important;
+        /* Disable all transforms */
+        overflow-y: visible;
+        /* Disable scrolling for form container */
+    }
+
+    .sign-in-container {
+        /* On mobile, we need a way to show/hide */
+        display: none;
+        z-index: 2;
+        padding-bottom: 40px;
+        /* Add padding at the bottom */
+    }
+
+    .sign-up-container {
+        display: none;
+        /* Hide both by default */
+        opacity: 1;
+        z-index: 1;
+        animation: none;
+        /* Disable desktop animation */
+        padding-bottom: 40px;
+        /* Add padding at the bottom */
+    }
+
+    /* Show the correct form based on the active panel */
+    .auth-container.right-panel-active .sign-up-container {
+        display: flex;
+        z-index: 5;
+    }
+
+    .auth-container:not(.right-panel-active) .sign-in-container {
+        display: flex;
+    }
+
+    /* Show the mobile toggle links */
+    .mobile-toggle {
+        display: block;
+    }
+}
