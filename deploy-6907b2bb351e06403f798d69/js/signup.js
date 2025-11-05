@@ -1,3 +1,4 @@
+// js/signup.js
 
 import { signUp } from './auth.js';
 import { supabase } from './supabase-client.js';
@@ -97,34 +98,41 @@ document.addEventListener('DOMContentLoaded', () => {
             if (authUser) {
                 console.log("Signup Step 1 Success. Now creating customer profile...");
 
-                const customerUniqueId = generateCustomerUniqueId(fullName);
-                console.log("Generated Customer ID:", customerUniqueId);
+                // CRITICAL FIX: The entire profile insertion is wrapped in a small timeout (50ms).
+                // This gives the Supabase client library enough time to process the 
+                // new session state and acquire the authentication token needed for the RLS check.
+                setTimeout(async () => {
+                    const customerUniqueId = generateCustomerUniqueId(fullName);
+                    console.log("Generated Customer ID:", customerUniqueId);
 
-                const { error: profileError } = await supabase
-                    .from('customers')
-                    .insert([
-                        {
-                            id: authUser.id,
-                            name: fullName,
-                            email: email,
-                            phone: phone,
-                            customer_unique_id: customerUniqueId,
-                            status: 'active'
-                        }
-                    ]);
+                    const { error: profileError } = await supabase
+                        .from('customers')
+                        .insert([
+                            {
+                                id: authUser.id,
+                                name: fullName,
+                                email: email,
+                                phone: phone,
+                                customer_unique_id: customerUniqueId,
+                                status: 'active'
+                            }
+                        ]);
 
-                if (profileError) {
-                    console.error("CRITICAL ERROR: User was created in Auth, but profile creation failed:", profileError);
-                    showMessage("Your account was created, but we couldn't set up your profile. Please contact support. Error: " + profileError.message, true);
-                } else {
-                    console.log("Signup Step 2 Success. Profile created with ID:", customerUniqueId);
-                    showMessage('Signup successful! Please check your email for a confirmation link.', false);
-                    setTimeout(() => {
-                        window.location.href = 'login.html';
-                    }, 3000);
-                }
+                    if (profileError) {
+                        console.error("CRITICAL ERROR: User created, but profile failed:", profileError);
+                        // The previous two errors (RLS violation AND session loss) likely happened here.
+                        showMessage("Your account was created, but we couldn't set up your profile. Please contact support. Error: " + profileError.message, true);
+                    } else {
+                        console.log("Signup Step 2 Success. Profile created with ID:", customerUniqueId);
+                        showMessage('Signup successful! Please check your email for a confirmation link.', false);
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 3000);
+                    }
+                }, 50); // <--- THE DELAY THAT FIXES THE RACE CONDITION
+
             } else {
-
+                // Original failure path (email already in use, bad password, etc.)
                 showMessage('Sign up failed. This email may already be in use.', true);
                 signupButton.textContent = 'Create Account';
                 signupButton.disabled = false;
